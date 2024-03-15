@@ -28,7 +28,7 @@ function Landing() {
         Welcome to Rising Star Demo!
       </Typography>
       
-			<Chatbox userID="65f1a50e075c37359e2fdcef" username="Yulun" groupID="65f19f411286acb83d05d2a0" groupName="Rising Start Testing" newHeight="800" />
+			<Chatbox user={{id:"65f1a50e075c37359e2fdcef", name:"Yulun"}} group={{id:"65f19f411286acb83d05d2a0", name:"Rising Start Testing"}} newHeight="800" />
 
       {/* <TableComponent query={query} /> */}
     </Box>
