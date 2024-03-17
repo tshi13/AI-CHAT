@@ -15,7 +15,7 @@ function Header() {
         <div className="absolute right-0 pr-8">
           <div className="flex gap-16 items-center">
             {pages.map((page) => (
-              <Link to={page} key={page} className="hover-underline">
+              <Link to={page.toLowerCase()} key={page} className="hover-underline">
                 {page}
               </Link>
             ))}
