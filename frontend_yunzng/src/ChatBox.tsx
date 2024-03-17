@@ -18,15 +18,15 @@ const chatClient = new StreamChat("hm7ff5yafac3");
 export default function Chatbox({
   user,
   group,
-  newHeight,
-}: {
+}: // newHeight,
+{
   user: User;
   group: Group;
   newHeight: number;
 }) {
   const [channel, setChannel] = useState<any>();
   const [flag, setFlag] = useState(false);
-  const letChatHeight = newHeight - 10;
+  // const letChatHeight = newHeight - 10;
   // const [userImage, setUserImage] = useState(props.userImage);
   // const [groupImage, setGroupImage] = useState(props.groupPicture);
 
@@ -58,10 +58,7 @@ export default function Chatbox({
   // Render the chat component if the channel has been set
   if (flag) {
     return (
-      <div
-        className="chatbox2"
-        style={{ marginTop: "10px", height: letChatHeight }}
-      >
+      <div className="content">
         <Chat client={chatClient} theme="str-chat__theme-light">
           <Channel channel={channel}>
             <Window>
