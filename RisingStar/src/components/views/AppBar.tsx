@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { pages, user } from "../../data";
-import SwitchAccessShortcutRoundedIcon from "@mui/icons-material/SwitchAccessShortcutRounded";
-import { Avatar } from "@mui/material";
+import { Avatar, AvatarImage } from "../ui/avatar";
+import { Sparkles } from "lucide-react"
 
 function AppBar() {
   return (
     <div className="overflow-hidden">
       <nav className="flex text-xl bg-black text-white sticky top-0 appbar items-center pl-4">
-        <SwitchAccessShortcutRoundedIcon fontSize="large" />
+        <Sparkles />
         <Link to="home" className="hover-underline font-bold pl-2">
           Rising Star
         </Link>
@@ -25,7 +25,9 @@ function AppBar() {
             ))}
 
             <Link to={"profile/" + user.id} key={user.id}>
-              <Avatar alt={user.name} src={user.avatar} />
+              <Avatar>
+                <AvatarImage src={user.avatar} />
+              </Avatar>
             </Link>
           </div>
         </div>

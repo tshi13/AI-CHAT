@@ -1,10 +1,13 @@
-import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
+import { Button } from "../ui/button";
 
 function Home() {
   return (
     <>
-      <Button variant="outlined" href="chat">
-        Chat
+      <Button variant="outline">
+        <Link to='/chat'>
+          Chat
+        </Link>
       </Button>
     </>
   );

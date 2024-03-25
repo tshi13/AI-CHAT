@@ -1,5 +1,5 @@
-import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../ui/button";
 
 const ErrorPage = () => {
   const navigate = useNavigate();

@@ -17,7 +17,7 @@
 }
 
 .hover-underline::after{
-  @apply dark:bg-white bg-black content-[''] absolute w-full scale-x-0 h-[2px] bottom-0 left-0 origin-center transition-all ease-in-out;
+  @apply bg-white content-[''] absolute w-full scale-x-0 h-[2px] bottom-0 left-0 origin-center transition-all ease-in-out;
 }
 
 .hover-underline:hover::after{

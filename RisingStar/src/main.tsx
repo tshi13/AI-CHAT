@@ -9,7 +9,7 @@ import Profile from "./components/pages/Profile.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename='/AI-CHAT'>
       <AppBar />
       <Routes>
         <Route path="/" element={<Home />} />

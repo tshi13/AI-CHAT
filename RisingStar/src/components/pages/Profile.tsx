@@ -9,6 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { user } from "../../data";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 function Profile() {
   ChartJS.register(
@@ -40,12 +41,22 @@ function Profile() {
         suggestedMin: 0,
         suggestedMax: 100,
         beginAtZero: true,
-      }
+      },
     },
   };
   return (
-    <div>
-      <Radar data={chartData} options={options}/>
+    <div className="grid grid-cols-4 gap-4">
+      <div className="border border-black flex flex-col justify-center items-center p-10 gap-4">
+        <Avatar className="h-48 w-48">
+          <AvatarImage src={user.avatar} />
+          <AvatarFallback>?</AvatarFallback>
+        </Avatar>
+        <h1 className="text-2xl">{user.name}</h1>
+      </div>
+      <div className="border border-black col-span-2"></div>
+      <div className="border border-black">
+        <Radar data={chartData} options={options} />
+      </div>
     </div>
   );
 }
