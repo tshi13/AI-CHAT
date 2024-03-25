@@ -24,7 +24,8 @@ export default function Chatbox({
   group: Group;
   newHeight: number;
 }) {
-  const [channel, setChannel] = useState<any>();
+  // @ts-expect-error no type can be assigned
+  const [channel, setChannel] = useState<Channel<DefaultGenerics> | undefined>();
   const [flag, setFlag] = useState(false);
   // const letChatHeight = newHeight - 10;
   // const [userImage, setUserImage] = useState(props.userImage);
@@ -35,7 +36,7 @@ export default function Chatbox({
     await chatClient.connectUser(user, chatClient.devToken(user.id));
 
     // creating or recreating the channel
-    let tempChannel = await chatClient.channel("messaging", group.id, {
+    const tempChannel = await chatClient.channel("messaging", group.id, {
       name: group.name,
     });
 

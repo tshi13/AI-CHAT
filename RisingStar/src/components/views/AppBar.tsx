@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { pages, user } from "../../data";
 import SwitchAccessShortcutRoundedIcon from "@mui/icons-material/SwitchAccessShortcutRounded";
 import { Avatar } from "@mui/material";
