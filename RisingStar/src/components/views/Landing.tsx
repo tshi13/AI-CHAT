@@ -1,7 +1,7 @@
 // import TableComponent from './TableComponent';
 // import CustomQueryInput from './CustomQueryInput';
 // import PresetQuerySelector from './PresetQuerySelector';
-import Chatbox from "./ChatBox";
+import Chatbox from "../pages/ChatBox";
 
 function Landing() {
   //   const [query, setQuery] = useState('');

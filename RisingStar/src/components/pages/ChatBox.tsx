@@ -10,7 +10,7 @@ import {
   Window,
 } from "stream-chat-react";
 import "stream-chat-react/dist/css/v2/index.css";
-import { User, Group } from "./types";
+import { User, Group } from "../../types";
 
 const chatClient = new StreamChat("hm7ff5yafac3");
 // const userToken = 'DEV'; //DEV TOKEN, DO NOT CHANGE!

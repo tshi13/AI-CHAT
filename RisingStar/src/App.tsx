@@ -1,5 +1,5 @@
 // import { useState } from 'react';
-import Landing from "./Landing";
+import Landing from "./components/views/Landing";
 
 function App() {
   // const [query, setQuery] = useState('');

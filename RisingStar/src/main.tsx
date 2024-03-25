@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ErrorPage from "./components/views/ErrorPage.tsx";
 import Home from "./components/pages/Home.tsx";
