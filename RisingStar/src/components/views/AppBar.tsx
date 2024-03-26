@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { pages, user } from "../../data";
+import { appName, pages, user } from "../../data";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Sparkles } from "lucide-react"
 
@@ -9,7 +9,7 @@ function AppBar() {
       <nav className="flex text-xl bg-black text-white appbar items-center pl-4">
         <Sparkles />
         <Link to="home" className="hover-underline font-bold pl-2">
-          Rising Star
+          {appName}
         </Link>
 
         <div className="absolute right-0 pr-8">

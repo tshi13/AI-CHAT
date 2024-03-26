@@ -1,16 +1,18 @@
+import { Company, Project } from "./types";
+
 export const pages = ["Home", "Problem", "Chat"];
 
-export const appName = ["Rising Star"];
+export const appName = "Rising Star";
 
-export const company = {
-  avatar: "https://avatars.githubusercontent.com/u/70663623?v=4",
+export const company: Company = {
   name: "React",
+  avatar: "https://avatars.githubusercontent.com/u/70663623?v=4",
 };
 
-export const post = {
-  title: "Mock Post Title",
+export const post: Project = {
+  title: "Software Decomposer Project",
   description:
-    "Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description Mock Post Description",
+    "Collaborate with a team of students to hack a software and destroy it completely, leaving only a blank page. Do not do this at home",
   public: true,
   company,
   deadline: "4/1/2024",
@@ -20,18 +22,33 @@ export const post = {
 
 const project1 = {
   ...post,
+  company: {
+    avatar:
+      "https://images.crowdspring.com/blog/wp-content/uploads/2023/12/09194155/mcdonalds-logo.png",
+    name: "Burger King",
+  },
   current: false,
   visible: true,
 };
 
 const project2 = {
   ...post,
+  company: {
+    avatar:
+      "https://www.ibm.com/brand/experience-guides/developer/8f4e3cc2b5d52354a6d43c8edba1e3c9/02_8-bar-reverse.svg",
+    name: "IBM",
+  },
   current: false,
   visible: true,
 };
 
 const project3 = {
   ...post,
+  company: {
+    avatar:
+      "https://1000logos.net/wp-content/uploads/2022/02/Syracuse-Orange-Logo-2006.png",
+    name: "Syracuse University",
+  },
   current: false,
   visible: true,
 };
@@ -43,11 +60,11 @@ export const user = {
   education: "Johns Hopkins University",
   skills: {
     "C++": 90,
-    "Communication": 80,
-    "Leadership": 70,
+    Communication: 80,
+    Leadership: 70,
     "React.js": 50,
     "Response time": 100,
-    "CSS": 13,
+    CSS: 13,
   },
   bio: "Hi, I am Yulun. I am a junior student at Johns Hopkins University. I major in Computer Science and minor in Applied Math, and Entrepreneurship & Management. I enjoy learning about the application of chemistry and biology in the field of engineering. I wish to further pursue my career as a software developer. I would love to connect with like-minded students and professionals. Contact me via Linkedin, and let's chat!",
   projects: [project1, project2, project3],
