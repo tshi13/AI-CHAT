@@ -5,8 +5,8 @@ import { Sparkles } from "lucide-react"
 
 function AppBar() {
   return (
-    <div className="overflow-hidden">
-      <nav className="flex text-xl bg-black text-white sticky top-0 appbar items-center pl-4">
+    <div className="sticky top-0">
+      <nav className="flex text-xl bg-black text-white appbar items-center pl-4">
         <Sparkles />
         <Link to="home" className="hover-underline font-bold pl-2">
           Rising Star

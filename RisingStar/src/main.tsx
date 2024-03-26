@@ -9,15 +9,17 @@ import Profile from "./components/pages/Profile.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter basename='/AI-CHAT'>
+    <BrowserRouter basename="/AI-CHAT">
       <AppBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/profile/:userId" element={<Profile />} />
-        <Route path="/chat" element={<App />} />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
+      <div className="content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/profile/:userId" element={<Profile />} />
+          <Route path="/chat" element={<App />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   </React.StrictMode>
 );
