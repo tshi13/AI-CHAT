@@ -40,14 +40,37 @@ export const user = {
   id: 'YunZng',
   name: "Yulun Zeng",
   avatar: "../src/assets/react.svg",
-  skills: {
+  techSkills: {
     'C++': 90,
     'Java': 80,
     'Python': 70,
     'React.js': 50,
-    'Fuck it': 100,
-    'Diu lay low mou': 13
+  },
+  softSkills: {
+    'Communication': 90,
+    'Collaboration': 95,
+    'Initiatives': 85
   },
   bio: '',
   projects: [project1, project2, project3],
 };
+
+export const userCumulativeData = {
+  id: 'YunZng',
+  name: "Yulun Zeng",
+  avatar: "../src/assets/react.svg",
+  techSkills: {
+    'C++': 80,
+    'Java': 70,
+    'Python': 70,
+    'React.js': 50,
+  },
+  softSkills: {
+    'Communication': 85,
+    'Collaboration': 95,
+    'Initiatives': 75
+  },
+  bio: '',
+  projects: [project1, project2, project3],
+};
+
