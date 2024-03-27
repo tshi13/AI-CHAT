@@ -10,6 +10,7 @@ export const company: Company = {
 };
 
 export const post: Project = {
+  id: "fake_project_id",
   title: "Software Decomposer Project",
   description:
     "Collaborate with a team of students to hack a software and destroy it completely, leaving only a blank page. Do not do this at home",
@@ -67,5 +68,5 @@ export const user = {
     CSS: 13,
   },
   bio: "Hi, I am Yulun. I am a junior student at Johns Hopkins University. I major in Computer Science and minor in Applied Math, and Entrepreneurship & Management. I enjoy learning about the application of chemistry and biology in the field of engineering. I wish to further pursue my career as a software developer. I would love to connect with like-minded students and professionals. Contact me via Linkedin, and let's chat!",
-  projects: [project1, project2, project3],
+  projects: [project1, project2, project3, project2],
 };

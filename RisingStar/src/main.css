@@ -5,6 +5,7 @@
 .content {
   height: 92vh;
   width: 100vw;
+  overflow: auto;
 }
 
 .appbar {

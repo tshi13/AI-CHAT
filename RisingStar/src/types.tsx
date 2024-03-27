@@ -14,6 +14,7 @@ export type Company ={
 }
 
 export type Project = {
+  id: string;
   title: string;
   description: string;
   public: boolean;
