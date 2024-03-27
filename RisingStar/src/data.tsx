@@ -1,6 +1,6 @@
 import { Company, Project } from "./types";
 
-export const pages = ["Home", "Problem", "Chat"];
+export const pages = ["Home", "Problems", "Chat"];
 
 export const appName = "Rising Star";
 
