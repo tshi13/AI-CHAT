@@ -23,3 +23,11 @@ export type Project = {
   maxMember: number;
   cratedAt: string;
 }
+
+export type ScoresType = {
+  professionalism: number;
+  initiative: number;
+  leadership: number;
+  "problem-solving": number;
+  teamwork: number;
+};
