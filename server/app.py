@@ -7,7 +7,7 @@ CORS(app)  # This will enable CORS for all routes and methods
 
 
 # Replace this with your actual OpenAI API key
-client = OpenAI(api_key="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")
+client = OpenAI(api_key="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")
 
 @app.route('/execute_query', methods=['POST'])
 def execute_query():
@@ -28,7 +28,7 @@ def execute_query():
                 },
                 {
                     "role": "user",
-                    "content": f"Please evaluate the following conversation for professionalism on a scale of 0 to 100, where 0 is completely terrible and 100 is very great. Only return a number between 0 to 100, do not include anything else. Conversation: {text}"
+                    "content": f"Please evaluate the following conversation for the folllowing metrics: professionalism, initiative, leadership, problem solving, and teamwork on a scale of 0 to 100, where 0 is completely terrible and 100 is very great. Only return 5 numbers between 0 to 100 representing each of the 5 qualities, separated by commas. Always output the five values separated by commas. Do not include anything else. Conversation: {text}"
                 }
             ]
         )

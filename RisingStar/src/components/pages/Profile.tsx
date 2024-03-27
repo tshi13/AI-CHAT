@@ -12,8 +12,13 @@ import { user } from "../../data";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card } from "../ui/card";
 import ProjectCard from "../ui/projectCard";
+import React, {useState} from "react";
 
-function Profile() {
+interface ProfileProps {
+  scores: { [key: string]: number };
+}
+
+function Profile({scores}: ProfileProps) {
   // Chart config
   ChartJS.register(
     RadialLinearScale,
@@ -28,7 +33,7 @@ function Profile() {
     datasets: [
       {
         label: "Proficiency",
-        data: Object.values(user.skills),
+        data: Object.values(scores),
         backgroundColor: "rgba(255, 99, 132, 0.2)",
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 1,
