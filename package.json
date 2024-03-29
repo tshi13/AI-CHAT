@@ -1,1 +1,16 @@
-{}
+{
+  "name": "rising-star",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docker:up": "pnpm --filter rising-star-api run docker:up",
+    "docker:down": "pnpm --filter rising-star-api run docker:down",
+    "start:api": "pnpm --filter rising-star-api run start:dev",
+    "start:app": "pnpm --filter rising-star-app run dev",
+    "start:all": "concurrently \"pnpm run start:app\" \"pnpm run start:api\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
