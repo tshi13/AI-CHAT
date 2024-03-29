@@ -4,12 +4,11 @@ services:
     image: postgres:15
     container_name: ${DB_NAME}
     restart: always
-    
     ports:
       - ${DB_PORT}:5432
-    volumes:
-      - ./data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PWD}
       POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - ./data:/var/lib/postgresql/data
