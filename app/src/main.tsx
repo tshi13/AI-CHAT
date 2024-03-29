@@ -29,7 +29,6 @@ function RootComponent() {
           <Route path="/chat" element={ <Chatbox
         user={{ id: "65f1a50e075c37359e2fdcef", name: "Yulun" }}
         group={{ id: "65f19f411286acb83d05d2a0", name: "Rising Start Testing" }}
-        newHeight={800}
 				scores={scores}
 				setScores={setScores}
       />} />

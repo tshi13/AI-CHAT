@@ -12,7 +12,6 @@ import { user } from "../../data";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card } from "../ui/card";
 import ProjectCard from "../ui/projectCard";
-import React, {useState} from "react";
 
 interface ProfileProps {
   scores: { [key: string]: number };

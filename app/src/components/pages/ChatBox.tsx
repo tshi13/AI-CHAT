@@ -21,18 +21,14 @@ const chatClient = new StreamChat("hm7ff5yafac3");
 interface ChatBoxProps {
 	user: User;
 	group: Group;
-	newHeight: number;
   scores: ScoresType;
 	setScores?: React.Dispatch<React.SetStateAction<ScoresType>>;
 }
 
-export default function Chatbox({ user, group, newHeight, scores, setScores }: ChatBoxProps) {
+export default function Chatbox({ user, group, scores, setScores }: ChatBoxProps) {
   // @ts-expect-error no type can be assigned
   const [channel, setChannel] = useState<Channel<DefaultGenerics> | undefined>();
   const [flag, setFlag] = useState(false);
-  // const letChatHeight = newHeight - 10;
-  // const [userImage, setUserImage] = useState(props.userImage);
-  // const [groupImage, setGroupImage] = useState(props.groupPicture);
 
 	function updateScores(newScoresString: string, existingScores: ScoresType): ScoresType {
 		const newScoresArray = newScoresString.split(',').map(score => score !== "" ? parseInt(score, 10) : null);
@@ -78,7 +74,6 @@ export default function Chatbox({ user, group, newHeight, scores, setScores }: C
 				.then(response => {
 					if (setScores) {
 						// Check if response.data.text is defined, otherwise use a default string value
-						//@ts-ignore
 						const newScoresString = response.data.score !== undefined ? response.data.score : "null,null,null,null,null";
 						setScores(updateScores(newScoresString, scores));
 				}	
@@ -92,17 +87,8 @@ export default function Chatbox({ user, group, newHeight, scores, setScores }: C
     setFlag(true);
   };
 
-  /**
-   *  This useEffect is called when the component is first rendered,
-   *  it will set the channel and channel name for the chat to display
-   */
-  useEffect(() => {
-    //let imgFile = Buffer.from(groupImage, 'base64');
-    //let imgURL = URL.createObjectURL(imgFile);
-    //setGroupImage(imgURL);
-    setupChat();
-  }, []);
-
+  // set the channel and channel name for the chat to display
+  setupChat();
   // Render the chat component if the channel has been set
   if (flag) {
     return (
