@@ -1,4 +1,4 @@
-import { Company, Project } from "./types";
+import { Company, Project } from "./lib/types";
 
 export const pages = ["Home", "Problems", "Chat"];
 

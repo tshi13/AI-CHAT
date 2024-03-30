@@ -1,26 +1,16 @@
 // import { useState } from 'react';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Chatbox from "./components/pages/ChatBox";
 import Problems from "./components/pages/Problems";
 import Profile from "./components/pages/Profile";
 import AppBar from "./components/views/AppBar";
 import ErrorPage from "./components/views/ErrorPage";
-import { ScoresType } from "./types";
-import login from "./components/auth/Login";
+import Login from "./components/auth/Login";
+import { Toaster } from "@/components/ui/toaster";
+import Register from "./components/auth/Register";
 
 function App() {
-  // const [query, setQuery] = useState('');
-  // const [isCustomQuery, setIsCustomQuery] = useState(true);
-
-  // const handleQuerySubmit = (newQuery) => {
-  //   setQuery(newQuery);
-  // };
-
-  // const toggleQueryType = (event) => {
-  //   setIsCustomQuery(event.target.checked);
-  // };
-
   // State that you want to share between Profile and Landing
   const [scores, setScores] = useState<ScoresType>({
     professionalism: 50,
@@ -29,6 +19,7 @@ function App() {
     "problem-solving": 50,
     teamwork: 50,
   });
+  const [user, setUser] = useState(null);
   const appContent = (
     <div className="content">
       <Routes>
@@ -53,11 +44,21 @@ function App() {
       </Routes>
     </div>
   );
-  const user = null;
+
   return (
     <BrowserRouter basename="/AI-CHAT">
       <AppBar />
-      {user ? appContent : <login>}
+      <Toaster />
+      {user ? (
+        appContent
+      ) : (
+        <div className="content">
+          <div className="h-full items-center grid grid-cols-2 ">
+            <Login />
+            <Register />
+          </div>
+        </div>
+      )}
     </BrowserRouter>
   );
 }

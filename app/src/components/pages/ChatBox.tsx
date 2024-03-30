@@ -10,9 +10,9 @@ import {
   Window,
 } from "stream-chat-react";
 import "stream-chat-react/dist/css/v2/index.css";
-import { User, Group } from "../../types";
+import { User, Group } from "../../lib/types";
 import axios from 'axios';
-import { ScoresType } from "../../types";
+import { ScoresType } from "../../lib/types";
 
 
 const chatClient = new StreamChat("hm7ff5yafac3");

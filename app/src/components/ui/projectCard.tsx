@@ -1,4 +1,4 @@
-import { Project } from "@/types";
+import { Project } from "@/lib/types";
 import { Card } from "./card";
 import { Link } from "react-router-dom";
 
