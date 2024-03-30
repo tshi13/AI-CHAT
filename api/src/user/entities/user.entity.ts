@@ -1,7 +1,7 @@
 import { Project } from "src/project/entities/project.entity";
-import { Column, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-enum Role {
+export enum Role {
   STUDENT = "student",
   ORG = "org",
 }
@@ -16,10 +16,10 @@ export class User {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
-  @Column({ unique: true })
+  @Column()
   name: string;
 
   @Column({ type: "enum", enum: Role })
@@ -29,8 +29,11 @@ export class User {
   bio?: string;
 
   @Column({ type: "jsonb", nullable: true })
-  skills: Skill[];
+  skills?: Skill[];
 
-  @OneToMany(() => Project, (project) => project.user)
+  @OneToMany(() => Project, (project) => project.creator, { nullable: true })
+  posts?: Project[];
+
+  @ManyToMany(() => Project, (project) => project.participants)
   projects: Project[];
 }

@@ -6,6 +6,8 @@ import { validate } from "./eng.validation";
 import {TypeOrmModule} from "@nestjs/typeorm"
 import { ProjectModule } from './project/project.module';
 import { UserModule } from './user/user.module';
+import { User } from "./user/entities/user.entity";
+import { Project } from "./project/entities/project.entity";
 
 @Module({
   imports: [
@@ -21,8 +23,8 @@ import { UserModule } from './user/user.module';
         username: configService.get('DB_USER'),
         password: configService.get('DB_PWD'),
         database: configService.get('DB_NAME'),
-        entities: [],
         synchronize: true,
+        autoLoadEntities: true,
       }),
       inject: [ConfigService],
     }),

@@ -20,3 +20,9 @@ Originally started with Prisma since it allows speedy development, but it doesn'
 
 ## Backend
 Project used NestJS since it works best with TypeORM. NestJS is one of the most popular backend framework. It works very well with pnpm and it supports TypeScript, effectively avoiding problems. The only issue is that it takes some effort to set up.
+
+
+### Learning Resources:
+## TypeORM:
+- https://orkhan.gitbook.io/typeorm/docs/entities#primary-columns
+- https://orkhan.gitbook.io/typeorm/docs/entities#columns-with-generated-values

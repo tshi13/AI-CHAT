@@ -1,34 +1,44 @@
 import { User } from "src/user/entities/user.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn, Unique } from "typeorm"
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+  Unique,
+} from "typeorm";
 
 @Entity()
 export class Project {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
 
-    @Column("date")
-    createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @CreateDateColumn()
-    updatedAt: Date;
+  @Column()
+  updatedAt: Date;
 
-    @Column("string")
-    title: string;
+  @Column()
+  title: string;
 
-    @Column("string")
-    description: string;
+  @Column()
+  description: string;
 
-    @Column("int")
-    maxTeam: number;
+  @Column()
+  maxTeam: number;
 
-    @Column("bool")
-    published: boolean;
+  @Column()
+  published: boolean;
 
-    @ManyToOne(() => User, (user) => user.projects)
-    user: User;
+  @Column()
+  duration: number;
+
+  @ManyToOne(() => User, (user) => user.posts)
+  creator: User;
+
+  @ManyToMany(() => User, (user) => user.projects)
+  participants: User[];
 }
-
-/*
-https://orkhan.gitbook.io/typeorm/docs/entities#primary-columns
-https://orkhan.gitbook.io/typeorm/docs/entities#columns-with-generated-values
-*/
