@@ -7,7 +7,7 @@ CORS(app)  # This will enable CORS for all routes and methods
 
 
 # Replace this with your actual OpenAI API key
-client = OpenAI(api_key="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")
+client = OpenAI(api_key="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")
 
 @app.route('/execute_query', methods=['POST'])
 def execute_query():
