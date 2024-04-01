@@ -36,6 +36,10 @@ Project used NestJS since it works best with TypeORM. NestJS is one of the most 
 ## Auth
 Passport.js is by far the most popular and the best authentication library for small size application. It also integrates really well with NestJS. The project will be using passport-jwt strategy since it provides login session that is widely used in modern web apps.
 
+## Client Side State Management
+Originally used react-redux, but due to its complexity and persistent issue. I decided to migrate to Zustand.
+
+
 # Learning Resources:
 
 ### NestJS
@@ -46,6 +50,7 @@ Passport.js is by far the most popular and the best authentication library for s
 - https://docs.nestjs.com/recipes/passport
 - https://www.passportjs.org/concepts/oauth2/
 - https://www.passportjs.org/packages/passport-jwt/
+
 
 ### PostgreSQL
 - https://docs.nestjs.com/techniques/database#database
@@ -61,3 +66,6 @@ Passport.js is by far the most popular and the best authentication library for s
 
 ### Docker: 
 - https://docs.docker.com/compose/compose-application-model/
+
+### Zustand: 
+- https://docs.pmnd.rs/zustand/getting-started/introduction

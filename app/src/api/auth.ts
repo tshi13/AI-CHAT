@@ -8,28 +8,32 @@ export async function register(
   username: string,
   password: string,
   role: Role
-): Promise<User | void> {
+): Promise<User> {
   const response = await axios.post(`${API_URL}/user/register`, {
     username,
     password,
     role,
   });
-  console.log(response.data);
-  // const access_token = response;
-  // setToken(access_token);
-  // return decodeToken(access_token);
+  if (response.status == 201) {
+    return response.data;
+  } else {
+    throw new Error(`Error: ${response.status} ${response.statusText}`);
+  }
 }
 
 export async function login(
   username: string,
   password: string
-): Promise<User | void> {
-  const response = axios.post(`${API_URL}/users/login`, {
+): Promise<User> {
+  const response = await axios.post(`${API_URL}/user/login`, {
     username,
     password,
   });
-  console.log((await response).data);
-  // const access_token = response;
-  // setToken(access_token);
-  // return decodeToken(access_token);
+  if (response.status == 201) {
+    const jwtToken = response.data["access_token"]
+    setToken(jwtToken)
+    return decodeToken(jwtToken);
+  } else {
+    throw new Error(`Error: ${response.status} ${response.statusText}`);
+  }
 }

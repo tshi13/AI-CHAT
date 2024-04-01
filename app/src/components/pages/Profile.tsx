@@ -13,11 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card } from "../ui/card";
 import ProjectCard from "../ui/projectCard";
 
-interface ProfileProps {
-  scores: { [key: string]: number };
-}
-
-function Profile({scores}: ProfileProps) {
+function Profile() {
   // Chart config
   ChartJS.register(
     RadialLinearScale,
@@ -32,7 +28,7 @@ function Profile({scores}: ProfileProps) {
     datasets: [
       {
         label: "Proficiency",
-        data: Object.values(scores),
+        data: Object.values(user.skills),
         backgroundColor: "rgba(255, 99, 132, 0.2)",
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 1,
@@ -75,7 +71,7 @@ function Profile({scores}: ProfileProps) {
         <h1 className="text-2xl">Projects</h1>
         <div className="grid grid-cols-3 gap-4 pt-8">
           {user.projects.map((project) => (
-            <ProjectCard project={project} height="h-44" width="w-44"/>
+            <ProjectCard project={project} height="h-44" width="w-44" />
           ))}
         </div>
       </div>

@@ -10,7 +10,7 @@ export type Skill = {
 };
 
 export type User = {
-  id: string;
+  username: string;
   name: string;
   role: Role;
   profile?: Profile;
@@ -21,6 +21,7 @@ export type Profile = {
   bio?: string;
   skills?: Skill[];
 };
+
 export type Project = {
   id: string;
   createdAt: Date;
@@ -30,6 +31,6 @@ export type Project = {
   maxTeam: number;
   published: boolean;
   duration: number;
-  creator: User["id"];
-  participants: User["id"][];
+  creator: User["username"];
+  participants: User["username"][];
 };

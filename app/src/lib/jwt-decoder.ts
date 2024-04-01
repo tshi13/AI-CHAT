@@ -1,6 +1,10 @@
 import { jwtDecode } from "jwt-decode";
 import { User } from "./types";
 
+export const getUserFromToken = (): User | null => {
+  const token = getToken()!;
+  return decodeToken(token);
+};
 export const getToken = (): string | null => {
   return localStorage.getItem("token");
 };

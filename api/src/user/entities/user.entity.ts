@@ -1,5 +1,12 @@
 import { Project } from "src/project/entities/project.entity";
-import { Column, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 
 export enum Role {
   STUDENT = "student",
@@ -12,21 +19,28 @@ export class Skill {
   visible: boolean;
 }
 
+@Entity()
 export class User {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @Column({ unique: true, nullable: true })
-  email: string;
-
-  @Column()
-  education: string;
+  @Column({ unique: true })
+  username: string;
 
   @Column()
-  name: string;
+  password: string;
 
   @Column({ type: "enum", enum: Role })
   role: Role;
+
+  @Column({ unique: true, nullable: true })
+  email?: string;
+
+  @Column({ nullable: true })
+  education?: string;
+
+  @Column({ nullable: true })
+  name?: string;
 
   @Column({ nullable: true })
   bio?: string;
@@ -35,8 +49,10 @@ export class User {
   skills?: Skill[];
 
   @OneToMany(() => Project, (project) => project.creator, { nullable: true })
-  posts?: Project[];
+  posts: Project[];
 
-  @ManyToMany(() => Project, (project) => project.participants)
+  @ManyToMany(() => Project, (project) => project.participants, {
+    nullable: true,
+  })
   projects: Project[];
 }

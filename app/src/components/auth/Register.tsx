@@ -5,14 +5,15 @@ import { Label } from "../ui/label";
 import { useToast } from "../ui/use-toast";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Role } from "@/lib/types";
-import { register } from "@/api/auth";
+import useStatusUser from "@/hooks/use-status-user";
 
 function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<Role>(Role.STUDENT);
+  const { handleRegister } = useStatusUser();
   const { toast } = useToast();
-  const handleRegister = async () => {
+  const handleClick = async () => {
     if (!username || !password) {
       toast({
         title: "Opps!",
@@ -20,11 +21,11 @@ function Register() {
         variant: "destructive",
       });
     } else {
-      await register(username, password, role);
+      handleRegister(username, password, role);
     }
   };
   return (
-    <div className="flex justify-center border-l">
+    <div className="flex justify-center h-72 items-center border-l">
       <div className="grid w-full max-w-sm items-center gap-1.5">
         <Label htmlFor="rusername">Username</Label>
         <Input
@@ -40,7 +41,7 @@ function Register() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <RadioGroup
-          className="flex justify-center"
+          className="flex justify-center p-4 "
           defaultValue={Role.STUDENT}
           onValueChange={(e) => setRole(e as Role)}
         >
@@ -49,7 +50,7 @@ function Register() {
           <Label htmlFor="org">Organization</Label>
           <RadioGroupItem value={Role.ORG} id={Role.ORG} />
         </RadioGroup>
-        <Button onClick={handleRegister}>Register</Button>
+        <Button onClick={handleClick}>Register</Button>
       </div>
     </div>
   );

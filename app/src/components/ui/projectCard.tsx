@@ -1,4 +1,3 @@
-import { Project } from "@/lib/types";
 import { Card } from "./card";
 import { Link } from "react-router-dom";
 
@@ -10,7 +9,7 @@ function ProjectCard({
   fontSizeRest,
   lines = "line-clamp-3",
 }: {
-  project: Project;
+  project: any;
   height: string;
   width: string;
   fontSizeTitle?: string;

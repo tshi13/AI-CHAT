@@ -10,51 +10,15 @@ import {
   Window,
 } from "stream-chat-react";
 import "stream-chat-react/dist/css/v2/index.css";
-import { User, Group } from "../../lib/types";
-import axios from 'axios';
-import { ScoresType } from "../../lib/types";
-
+import { User } from "../../lib/types";
+import axios from "axios";
 
 const chatClient = new StreamChat("hm7ff5yafac3");
-// const userToken = 'DEV'; //DEV TOKEN, DO NOT CHANGE!
-
-interface ChatBoxProps {
-	user: User;
-	group: Group;
-  scores: ScoresType;
-	setScores?: React.Dispatch<React.SetStateAction<ScoresType>>;
-}
-
-export default function Chatbox({ user, group, scores, setScores }: ChatBoxProps) {
-  // @ts-expect-error no type can be assigned
-  const [channel, setChannel] = useState<Channel<DefaultGenerics> | undefined>();
+export default function Chatbox() {
+  const [channel, setChannel] = useState<
+    Channel<DefaultGenerics> | undefined
+  >();
   const [flag, setFlag] = useState(false);
-
-	function updateScores(newScoresString: string, existingScores: ScoresType): ScoresType {
-		const newScoresArray = newScoresString.split(',').map(score => score !== "" ? parseInt(score, 10) : null);
-	
-		const fields: (keyof ScoresType)[] = [
-			'professionalism',
-			'initiative',
-			'leadership',
-			'problem-solving',
-			'teamwork'
-		];
-	
-		const updatedScores: ScoresType = fields.reduce((acc, field, index) => {
-			const newScore = newScoresArray[index];
-			// Check if newScore is not null and is a valid number, otherwise use the existing score
-			acc[field] = newScore !== null && !isNaN(newScore) ? newScore : existingScores[field];
-			return acc;
-		}, {} as ScoresType);
-		console.log(updatedScores);
-	
-		return updatedScores;
-	}
-	
-	
-
-
   const setupChat = async () => {
     // connect client to chat with credential
     await chatClient.connectUser(user, chatClient.devToken(user.id));
@@ -64,23 +28,27 @@ export default function Chatbox({ user, group, scores, setScores }: ChatBoxProps
       name: group.name,
     });
 
-		tempChannel.on('message.new', event => {
-			if (event.user && event.message) {
-				console.log(`${event.user.name}: ${event.message.text}`);
-				const message = event.message.text;
-				axios.post('http://127.0.0.1:5000/execute_query', {
-					text: message
-				})
-				.then(response => {
-					if (setScores) {
-						// Check if response.data.text is defined, otherwise use a default string value
-						const newScoresString = response.data.score !== undefined ? response.data.score : "null,null,null,null,null";
-						setScores(updateScores(newScoresString, scores));
-				}	
-				})
-				.catch(error => console.error('Error fetching data:', error));
-			}
-		});
+    tempChannel.on("message.new", (event) => {
+      if (event.user && event.message) {
+        console.log(`${event.user.name}: ${event.message.text}`);
+        const message = event.message.text;
+        axios
+          .post("http://127.0.0.1:5000/execute_query", {
+            text: message,
+          })
+          .then((response) => {
+            if (setScores) {
+              // Check if response.data.text is defined, otherwise use a default string value
+              const newScoresString =
+                response.data.score !== undefined
+                  ? response.data.score
+                  : "null,null,null,null,null";
+              setScores(updateScores(newScoresString, scores));
+            }
+          })
+          .catch((error) => console.error("Error fetching data:", error));
+      }
+    });
 
     // await tempChannel.addMembers([{user_id:userID}],{ text: {username} + ' joined the channel.' }); // add someone to channel
     setChannel(tempChannel);

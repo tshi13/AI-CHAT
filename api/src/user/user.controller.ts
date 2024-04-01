@@ -6,42 +6,44 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  UnauthorizedException,
 } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
 import { LoginUserDto } from "./dto/login-user.dto";
+import { AuthService } from "src/auth/auth.service";
+import { JwtService } from "@nestjs/jwt";
+import { ResponseUserDto } from "./dto/response-user.dto";
 
 @Controller("user")
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Post("register")
-  create(@Body() createUserDto: CreateUserDto) {
-    console.log(createUserDto);
-    return this.userService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto): Promise<ResponseUserDto> {
+    const user = await this.userService.create(createUserDto);
+    return {
+      id: user.id,
+      username: user.username,
+      role: user.role,
+    };
   }
 
   @Post("login")
-  login(@Body() loginUserDto: LoginUserDto) {
-    console.log(loginUserDto);
-    // return this.userService.findOne(loginUserDto);
-    return null;
-  }
-
-  @Get(":id")
-  findOne(@Param("id") id: string) {
-    console.log("this worked!")
-    return this.userService.findOne(+id);
-  }
-
-  @Patch(":id")
-  update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
-  }
-
-  @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.userService.remove(+id);
+  async login(
+    @Body() loginUserDto: LoginUserDto
+  ): Promise<{ access_token: string }> {
+    const user = await this.authService.validateUser(
+      loginUserDto.username,
+      loginUserDto.password
+    );
+    if (!user) {
+      throw new UnauthorizedException("Invalid credentials.");
+    }
+    return await this.authService.login(user);
   }
 }

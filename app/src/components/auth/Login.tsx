@@ -2,13 +2,15 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import useStatusUser from "@/hooks/use-status-user";
 import { useToast } from "../ui/use-toast";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { handleLogin } = useStatusUser();
   const { toast } = useToast();
-  const handleLogin = async () => {
+  const handleClick = async (username: string, password: string) => {
     if (!username || !password) {
       toast({
         title: "Opps!",
@@ -16,11 +18,11 @@ function Login() {
         variant: "destructive",
       });
     } else {
-      
+      handleLogin(username, password);
     }
   };
   return (
-    <div className="flex justify-center border-r">
+    <div className="flex justify-center h-72 items-center border-r">
       <div className="grid w-full max-w-sm items-center gap-1.5">
         <Label htmlFor="username">Username</Label>
         <Input
@@ -35,7 +37,12 @@ function Login() {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button onClick={handleLogin}>Login</Button>
+        <Button
+          className="mt-4"
+          onClick={() => handleClick(username, password)}
+        >
+          Login
+        </Button>
       </div>
     </div>
   );

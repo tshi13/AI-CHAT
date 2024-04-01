@@ -5,9 +5,7 @@ import {
   Entity,
   ManyToMany,
   ManyToOne,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
-  Unique,
 } from "typeorm";
 
 @Entity()
@@ -39,6 +37,6 @@ export class Project {
   @ManyToOne(() => User, (user) => user.posts)
   creator: User;
 
-  @ManyToMany(() => User, (user) => user.projects)
+  @ManyToMany(() => User, (user) => user.projects, { nullable: true })
   participants: User[];
 }
