@@ -9,22 +9,28 @@ import {
   Window,
 } from "stream-chat-react";
 import "stream-chat-react/dist/css/v2/index.css";
-import { User } from "../../lib/types";
-import axios from "axios";
 import setUpChat from "@/lib/chat.init";
+import { useStore } from "@/lib/store";
 
 export default function Chatbox() {
-  const [channel, setChannel] = useState<
-    Channel<DefaultGenerics> | undefined
-  >();
+  const channel = useStore((state) => state.channel);
+  const chatClient = useStore((state) => state.chatClient);
+  const setChatClient = useStore((state) => state.setChatClient);
+  const setChannel = useStore((state) => state.setChannel);
+
   // set the channel and channel name for the chat to display
   useEffect(() => {
-    setUpChat();
+    (async () => {
+      const response = await setUpChat();
+      setChatClient(response.chatClient);
+      setChannel(response.channel);
+    })();
   }, []);
+
   // Render the chat component if the channel has been set
-    return (
-      <div className="content">
-        {chat?}
+  return (
+    <div className="content">
+      {channel && chatClient ? (
         <Chat client={chatClient} theme="str-chat__theme-light">
           <Channel channel={channel}>
             <Window>
@@ -35,7 +41,9 @@ export default function Chatbox() {
             <Thread />
           </Channel>
         </Chat>
-      </div>
-    );
-  }
+      ) : (
+        <></>
+      )}
+    </div>
+  );
 }
