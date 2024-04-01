@@ -1,6 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox";
 
-function Problems() {
+function Projects() {
   return (
     <div className="content">
       <div className="grid grid-cols-5 h-full gap-4 p-4">
@@ -18,4 +18,4 @@ function Problems() {
     </div>
   );
 }
-export default Problems;
+export default Projects;
