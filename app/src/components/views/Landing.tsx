@@ -20,8 +20,6 @@ function Landing() {
   return (
     <div>
       <Chatbox
-        user={{ id: "65f1a50e075c37359e2fdcef", name: "Yulun" }}
-        group={{ id: "65f19f411286acb83d05d2a0", name: "Rising Start Testing" }}
       />
       {/* <TableComponent query={query} /> */}
     </div>
