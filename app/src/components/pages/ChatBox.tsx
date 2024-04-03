@@ -27,8 +27,8 @@ interface ChatBoxProps {
 }
 
 export default function Chatbox({ user, group, newHeight, scores, setScores }: ChatBoxProps) {
-  // @ts-expect-error no type can be assigned
-  const [channel, setChannel] = useState<Channel<DefaultGenerics> | undefined>();
+  
+  const [channel, setChannel] = useState<any>();
   const [flag, setFlag] = useState(false);
   // const letChatHeight = newHeight - 10;
   // const [userImage, setUserImage] = useState(props.userImage);

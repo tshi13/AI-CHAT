@@ -1,16 +1,16 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Chatbox from "./components/pages/ChatBox";
-import Problems from "./components/pages/Problems";
 import Profile from "./components/pages/Profile";
-import AppBar from "./components/views/AppBar";
-import ErrorPage from "./components/views/ErrorPage";
+import AppBar from "./components/features/common/AppBar";
+import ErrorPage from "./components/features/common/ErrorPage";
 import Login from "./components/auth/Login";
 import { Toaster } from "@/components/ui/toaster";
 import Register from "./components/auth/Register";
 import { useStore } from "./lib/store";
-import RouteListener from "./components/views/RouteListener";
 import { useState } from "react";
 import { ScoresType } from "./types";
+import RouteListener from "./components/features/common/RouteListener";
+import Projects from "./components/pages/Projects";
 
 function App() {
   const user = useStore((state) => state.user);
@@ -39,7 +39,7 @@ function App() {
         newHeight={800}
 				scores={scores}
 				setScores={setScores}/>} />
-            <Route path="/problems" element={<Problems />} />
+            <Route path="/projects" element={<Projects />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>
