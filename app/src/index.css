@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.content {
+  height: 92vh;
+  width: 100vw;
+  overflow: auto;
+}
+
+.appbar {
+  height: 4rem;
+  width: 100vw;
+}
+
+.hover-underline{
+  @apply inline-block relative;
+}
+
+.hover-underline::after{
+  @apply bg-white content-[''] absolute w-full scale-x-0 h-[2px] bottom-0 left-0 origin-center transition-all ease-in-out;
+}
+
+.hover-underline:hover::after{
+  @apply scale-x-100;
+}
