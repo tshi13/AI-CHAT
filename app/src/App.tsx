@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Chatbox from "./components/pages/ChatBox";
+import Chatbox from "./components/pages/Chat";
 import Projects from "./components/pages/Projects";
 import Profile from "./components/pages/Profile";
-import AppBar from "./components/views/AppBar";
-import ErrorPage from "./components/views/ErrorPage";
+import AppBar from "./components/features/common/AppBar";
+import ErrorPage from "./components/features/common/ErrorPage";
 import Login from "./components/auth/Login";
 import { Toaster } from "@/components/ui/toaster";
 import Register from "./components/auth/Register";
 import { useStore } from "./lib/store";
-import RouteListener from "./components/views/RouteListener";
+import RouteListener from "./components/features/common/RouteListener";
 import { useEffect } from "react";
 import chatSetUp from "./lib/chat.init";
 

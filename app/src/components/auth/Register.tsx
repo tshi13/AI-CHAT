@@ -13,7 +13,15 @@ function Register() {
   const [role, setRole] = useState<Role>(Role.STUDENT);
   const { handleRegister } = useStatusUser();
   const { toast } = useToast();
+  const clearFields = () => {
+    setUsername("");
+    setPassword("");
+    (document.getElementById("rusername") as HTMLInputElement).value = "";
+    (document.getElementById("rpassword") as HTMLInputElement).value = "";
+  };
   const handleClick = async () => {
+    console.log(username);
+    console.log(password);
     if (!username || !password) {
       toast({
         title: "Opps!",
@@ -22,6 +30,7 @@ function Register() {
       });
     } else {
       handleRegister(username, password, role);
+      clearFields();
     }
   };
   return (
