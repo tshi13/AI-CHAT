@@ -3,18 +3,15 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import useStatusUser from "@/hooks/use-status-user";
-import { useToast } from "../ui/use-toast";
+import { toast } from "../ui/use-toast";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { handleLogin } = useStatusUser();
-  const { toast } = useToast();
   const clearFields = () => {
     setUsername("");
     setPassword("");
-    (document.getElementById("username") as HTMLInputElement).value = "";
-    (document.getElementById("password") as HTMLInputElement).value = "";
   };
   const handleClick = async (username: string, password: string) => {
     if (!username || !password) {

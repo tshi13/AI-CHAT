@@ -2,14 +2,14 @@ import { decodeToken, setToken } from "@/lib/jwt-decoder";
 import { Role, User } from "@/lib/types";
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL + "/user";
 
 export async function register(
   username: string,
   password: string,
   role: Role
 ): Promise<User> {
-  const response = await axios.post(`${API_URL}/user/register`, {
+  const response = await axios.post(`${API_URL}/register`, {
     username,
     password,
     role,
@@ -21,17 +21,14 @@ export async function register(
   }
 }
 
-export async function login(
-  username: string,
-  password: string
-): Promise<User> {
-  const response = await axios.post(`${API_URL}/user/login`, {
+export async function login(username: string, password: string): Promise<User> {
+  const response = await axios.post(`${API_URL}/login`, {
     username,
     password,
   });
   if (response.status == 201) {
-    const jwtToken = response.data["access_token"]
-    setToken(jwtToken)
+    const jwtToken = response.data["access_token"];
+    setToken(jwtToken);
     return decodeToken(jwtToken);
   } else {
     throw new Error(`Error: ${response.status} ${response.statusText}`);

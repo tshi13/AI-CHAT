@@ -13,26 +13,26 @@ export class Project {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @Column()
+  title: string;
+
+  @Column()
+  summary: string;
+
+  @Column()
+  deadline: string;
+  
+  @Column()
+  teamSize: number;
+
+  @Column()
+  detail: string;
+
   @CreateDateColumn()
   createdAt: Date;
 
   @Column()
   updatedAt: Date;
-
-  @Column()
-  title: string;
-
-  @Column()
-  description: string;
-
-  @Column()
-  maxTeam: number;
-
-  @Column()
-  published: boolean;
-
-  @Column()
-  duration: number;
 
   @ManyToOne(() => User, (user) => user.posts)
   creator: User;

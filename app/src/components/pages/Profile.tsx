@@ -17,7 +17,7 @@ interface ProfileProps {
   scores: { [key: string]: number };
 }
 
-function Profile({scores}: ProfileProps) {
+export default function Profile({ scores }: ProfileProps) {
   // Chart config
   ChartJS.register(
     RadialLinearScale,
@@ -82,4 +82,3 @@ function Profile({scores}: ProfileProps) {
     </div>
   );
 }
-export default Profile;

@@ -8,21 +8,21 @@ export type Group = {
   name: string;
 };
 
-export type Company ={
+export type Company = {
   name: string;
   avatar: string;
-}
+};
 
 export type Project = {
-  id: string;
+  id?: string;
   title: string;
-  description: string;
-  public: boolean;
-  company: Company;
-  deadline: string;
-  maxMember: number;
-  cratedAt: string;
-}
+  summary: string;
+  detail: string;
+  creator: string;
+  deadline?: Date;
+  teamSize: number;
+  cratedAt?: Date;
+};
 
 export type ScoresType = {
   professionalism: number;

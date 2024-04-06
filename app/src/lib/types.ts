@@ -10,6 +10,7 @@ export type Skill = {
 };
 
 export type User = {
+  id?: string;
   username: string;
   name: string;
   role: Role;

@@ -1,12 +1,11 @@
 import { login, register } from "@/api/auth";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/use-toast";
 import { deleteToken, getUserFromToken } from "@/lib/jwt-decoder";
 import { useStore } from "@/lib/store";
 import { Role } from "@/lib/types";
 import { useEffect } from "react";
 
-function useStatusUser() {
-  const { toast } = useToast();
+export default function useStatusUser() {
   const setUser = useStore((state) => state.setUser);
   const clearUser = useStore((state) => state.clearUser);
   const handleLogin = async (username: string, password: string) => {
@@ -67,6 +66,5 @@ function useStatusUser() {
       clearUser();
     }
   }, []);
-  return { handleLogin, handleLogout ,handleRegister};
+  return { handleLogin, handleLogout, handleRegister };
 }
-export default useStatusUser;

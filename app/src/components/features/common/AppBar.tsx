@@ -13,7 +13,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-function AppBar() {
+export default function AppBar() {
   const navigate = useNavigate();
   const user = useStore((state) => state.user);
   const { handleLogout } = useStatusUser();
@@ -67,4 +67,3 @@ function AppBar() {
     </div>
   );
 }
-export default AppBar;
