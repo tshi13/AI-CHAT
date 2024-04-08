@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "./entities/user.entity";
@@ -16,12 +16,6 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     const { password, ...data } = createUserDto;
-    const userExists = await this.userRepository.existsBy({
-      username: data.username,
-    });
-    if (userExists) {
-      throw new HttpException("Invalid username", HttpStatus.BAD_REQUEST);
-    }
     const saltRound = Number(
       await this.configService.get<number>("BCRYPT_SALT")
     );

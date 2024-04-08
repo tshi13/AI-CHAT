@@ -10,7 +10,7 @@ export type Skill = {
 };
 
 export type User = {
-  id?: string;
+  id?: number;
   username: string;
   name: string;
   role: Role;
@@ -23,15 +23,21 @@ export type Profile = {
   skills?: Skill[];
 };
 
+
 export type Project = {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
+  id?: string;
   title: string;
-  description: string;
-  maxTeam: number;
-  published: boolean;
-  duration: number;
-  creator: User["username"];
-  participants: User["username"][];
+  summary: string;
+  detail: string;
+  userId: number;
+  deadline?: Date;
+  teamSize: number;
+  cratedAt?: Date;
+};
+
+
+export type ErrorResponse = {
+  error: string;
+  message: string;
+  statusCode: number;
 };

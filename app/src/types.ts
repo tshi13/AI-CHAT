@@ -13,16 +13,6 @@ export type Company = {
   avatar: string;
 };
 
-export type Project = {
-  id?: string;
-  title: string;
-  summary: string;
-  detail: string;
-  creator: string;
-  deadline?: Date;
-  teamSize: number;
-  cratedAt?: Date;
-};
 
 export type ScoresType = {
   professionalism: number;

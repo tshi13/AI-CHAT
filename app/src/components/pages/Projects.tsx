@@ -1,5 +1,4 @@
 import ProjectAside from "../features/projects/ProjectAside";
-import Profile from "./Profile";
 
 export default function Projects() {
   return (

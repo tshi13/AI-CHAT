@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -20,7 +21,7 @@ export class Project {
   summary: string;
 
   @Column()
-  deadline: string;
+  deadline: Date;
   
   @Column()
   teamSize: number;
@@ -35,7 +36,11 @@ export class Project {
   updatedAt: Date;
 
   @ManyToOne(() => User, (user) => user.posts)
+  @JoinColumn({ name: 'userId' })
   creator: User;
+
+  @Column()
+  userId: number;
 
   @ManyToMany(() => User, (user) => user.projects, { nullable: true })
   participants: User[];

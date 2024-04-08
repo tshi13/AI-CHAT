@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -13,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useStore } from "@/lib/store";
-import { Role } from "@/lib/types";
+import { Project, Role } from "@/lib/types";
 import { Plus } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarIcon } from "lucide-react";
@@ -23,30 +22,45 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
-import { Project } from "@/types";
 import { toast } from "@/components/ui/use-toast";
 import useEditProject from "@/hooks/use-edit-projects";
 
 export default function ProjectCreate() {
   const user = useStore((state) => state.user)!;
+  const [open, setOpen] = useState(false);
   const [project, setProject] = useState<Project>({
     title: "",
     summary: "",
     detail: "",
-    creator: user.id!,
+    userId: user.id!,
     deadline: undefined,
     teamSize: 1,
   });
   const { handleProjectCreate } = useEditProject();
-  const handleCreate = () => {
-    handleProjectCreate(project);
-    toast({
-      title: "hello",
-      variant: "destructive",
-    });
+  const handleCreate = async () => {
+    if (
+      !(project.title && project.summary && project.detail && project.deadline)
+    ) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Cannot have empty fields.",
+      });
+    } else {
+      await handleProjectCreate(project);
+      setOpen(false);
+      setProject({
+        title: "",
+        summary: "",
+        detail: "",
+        userId: user.id!,
+        deadline: undefined,
+        teamSize: 1,
+      });
+    }
   };
   return user.role == Role.ORG ? (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
           <Plus className="mr-2 h-4 w-4" />
@@ -69,6 +83,7 @@ export default function ProjectCreate() {
               id="title"
               placeholder="Project title"
               className="col-span-5"
+              value={project.title}
               onChange={(e) =>
                 setProject({ ...project, title: e.target.value })
               }
@@ -82,6 +97,7 @@ export default function ProjectCreate() {
               id="summary"
               placeholder="Brief summary of your project"
               className="col-span-5"
+              value={project.summary}
               onChange={(e) =>
                 setProject({ ...project, summary: e.target.value })
               }
@@ -134,7 +150,7 @@ export default function ProjectCreate() {
             <Input
               id="teamsize"
               type="number"
-              defaultValue={1}
+              defaultValue={project.teamSize}
               min={1}
               onChange={(e) => {
                 setProject({ ...project, teamSize: parseInt(e.target.value) });
@@ -151,6 +167,7 @@ export default function ProjectCreate() {
               id="detail"
               className="col-span-5"
               placeholder="Specify the detail of your project"
+              value={project.detail}
               onChange={(e) =>
                 setProject({ ...project, detail: e.target.value })
               }
@@ -158,11 +175,9 @@ export default function ProjectCreate() {
           </div>
         </div>
         <DialogFooter>
-          <DialogClose asChild>
-            <Button onClick={handleCreate} className="w-[135px]">
-              Create
-            </Button>
-          </DialogClose>
+          <Button onClick={handleCreate} className="w-[135px]">
+            Create
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

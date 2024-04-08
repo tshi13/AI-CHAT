@@ -21,8 +21,10 @@ function Login() {
         variant: "destructive",
       });
     } else {
-      handleLogin(username, password);
-      clearFields();
+      const success = await handleLogin(username, password);
+      if (success) {
+        clearFields();
+      }
     }
   };
   return (

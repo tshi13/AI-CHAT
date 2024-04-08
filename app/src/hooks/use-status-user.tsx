@@ -17,6 +17,7 @@ export default function useStatusUser() {
         title: "Success",
         description: "You are logged in.",
       });
+      return user;
     } catch (err) {
       toast({
         variant: "destructive",
