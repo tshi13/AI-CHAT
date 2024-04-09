@@ -28,6 +28,15 @@ export type ScoresType = {
   professionalism: number;
   initiative: number;
   leadership: number;
-  "problem-solving": number;
+  problemSolving: number;
   teamwork: number;
 };
+
+export type ScoreData = {
+  sequenceNumber: number;
+  professionalism: number;
+  initiative: number;
+  leadership: number;
+  problemSolving: number;
+  teamwork: number;
+}

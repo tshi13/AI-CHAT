@@ -13,6 +13,7 @@ import "stream-chat-react/dist/css/v2/index.css";
 import { User, Group } from "../../types";
 import axios from 'axios';
 import { ScoresType } from "../../types";
+import React from "react";
 
 
 const chatClient = new StreamChat("hm7ff5yafac3");
@@ -22,17 +23,14 @@ interface ChatBoxProps {
 	user: User;
 	group: Group;
 	newHeight: number;
-	scores: ScoresType;
 	setScores?: React.Dispatch<React.SetStateAction<ScoresType>>;
 }
 
-export default function Chatbox({ user, group, newHeight, scores, setScores }: ChatBoxProps) {
+function Chatbox({ user, group, setScores }: ChatBoxProps) {
 
 	const [channel, setChannel] = useState<any>();
 	const [flag, setFlag] = useState(false);
-	// const letChatHeight = newHeight - 10;
-	// const [userImage, setUserImage] = useState(props.userImage);
-	// const [groupImage, setGroupImage] = useState(props.groupPicture);
+
 
 	function updateScores(newScoresString: string, existingScores: ScoresType): ScoresType {
 		const newScoresArray = newScoresString.split(',').map(score => score !== "" ? parseInt(score, 10) : null);
@@ -41,7 +39,7 @@ export default function Chatbox({ user, group, newHeight, scores, setScores }: C
 			'professionalism',
 			'initiative',
 			'leadership',
-			'problem-solving',
+			'problemSolving',
 			'teamwork'
 		];
 
@@ -51,60 +49,63 @@ export default function Chatbox({ user, group, newHeight, scores, setScores }: C
 			acc[field] = newScore !== null && !isNaN(newScore) ? newScore : existingScores[field];
 			return acc;
 		}, {} as ScoresType);
-		console.log(updatedScores);
+		// console.log(updatedScores);
 
 		return updatedScores;
 	}
 
 
 
+	useEffect(() => {
+    const setupChat = async () => {
+      if (!flag) {
+        await chatClient.connectUser(user, chatClient.devToken(user.id));
+        const tempChannel = chatClient.channel("messaging", group.id, {
+          name: group.name,
+        });
 
-	const setupChat = async () => {
-		if (!flag) {
-			// connect client to chat with credential
-			await chatClient.connectUser(user, chatClient.devToken(user.id));
+        tempChannel.on('message.new', event => {
+          if (event.user && event.message) {
+            console.log(`${event.user.name}: ${event.message.text}`);
+            const message = event.message.text;
+            axios.post('http://127.0.0.1:5000/execute_query', {
+              text: message
+            })
+              .then(response => {
+                if (setScores) {
+                  const newScoresString = response.data.score !== undefined ? response.data.score : "null,null,null,null,null";
+                  setScores(prevScores => updateScores(newScoresString, prevScores));
+                }
+              })
+              .catch(error => console.error('Error fetching data:', error));
+          }
+        });
 
-			// creating or recreating the channel
-			const tempChannel = await chatClient.channel("messaging", group.id, {
-				name: group.name,
-			});
+        setChannel(tempChannel);
+        await tempChannel.watch(); // Ensure the channel is being watched
+        setFlag(true);
+      }
+    };
 
-			tempChannel.on('message.new', event => {
-				if (event.user && event.message) {
-					console.log(`${event.user.name}: ${event.message.text}`);
-					const message = event.message.text;
-					axios.post('http://127.0.0.1:5000/execute_query', {
-						text: message
-					})
-						.then(response => {
-							if (setScores) {
-								// Check if response.data.text is defined, otherwise use a default string value
-								//@ts-ignore
-								const newScoresString = response.data.score !== undefined ? response.data.score : "null,null,null,null,null";
-								setScores(updateScores(newScoresString, scores));
-							}
-						})
-						.catch(error => console.error('Error fetching data:', error));
-				}
-			});
+    setupChat();
+		console.log("Chatbox component mounted")
 
-			// await tempChannel.addMembers([{user_id:userID}],{ text: {username} + ' joined the channel.' }); // add someone to channel
-			setChannel(tempChannel);
-			setFlag(true);
-		}
+  }, []); // Dependencies to trigger the effect
 
-	};
 
 	/**
 	 *  This useEffect is called when the component is first rendered,
 	 *  it will set the channel and channel name for the chat to display
 	 */
-	useEffect(() => {
-		//let imgFile = Buffer.from(groupImage, 'base64');
-		//let imgURL = URL.createObjectURL(imgFile);
-		//setGroupImage(imgURL);
-		setupChat();
-	}, []);
+	// useEffect(() => {
+	// 	//let imgFile = Buffer.from(groupImage, 'base64');
+	// 	//let imgURL = URL.createObjectURL(imgFile);
+	// 	//setGroupImage(imgURL);
+	// 	setupChat();
+	// }, []);
+
+
+	
 
 	// Render the chat component if the channel has been set
 	if (flag) {
@@ -123,4 +124,17 @@ export default function Chatbox({ user, group, newHeight, scores, setScores }: C
 			</div>
 		);
 	}
+
+	
 }
+// const Chatbox = React.memo(ChatboxComponent, (prevProps, nextProps) => {
+// 	// This function determines if Chatbox should re-render.
+// 	// Return true to prevent re-render, false to allow re-render.
+
+// 	// Example: You might want to compare specific props. If they haven't changed, return true.
+// 	// This is a shallow comparison example; for deep comparison, you might need a library like lodash.
+// 	return true;
+// 	// Note: Be cautious with deep comparison for performance reasons.
+// });
+
+export default Chatbox;
