@@ -90,22 +90,13 @@ function Chatbox({ user, group, setScores }: ChatBoxProps) {
     setupChat();
 		console.log("Chatbox component mounted")
 
+		// Cleanup function
+		return () => {
+			chatClient.disconnectUser().then(() => console.log("User disconnected"));
+		};
+
   }, []); // Dependencies to trigger the effect
 
-
-	/**
-	 *  This useEffect is called when the component is first rendered,
-	 *  it will set the channel and channel name for the chat to display
-	 */
-	// useEffect(() => {
-	// 	//let imgFile = Buffer.from(groupImage, 'base64');
-	// 	//let imgURL = URL.createObjectURL(imgFile);
-	// 	//setGroupImage(imgURL);
-	// 	setupChat();
-	// }, []);
-
-
-	
 
 	// Render the chat component if the channel has been set
 	if (flag) {
@@ -127,14 +118,5 @@ function Chatbox({ user, group, setScores }: ChatBoxProps) {
 
 	
 }
-// const Chatbox = React.memo(ChatboxComponent, (prevProps, nextProps) => {
-// 	// This function determines if Chatbox should re-render.
-// 	// Return true to prevent re-render, false to allow re-render.
-
-// 	// Example: You might want to compare specific props. If they haven't changed, return true.
-// 	// This is a shallow comparison example; for deep comparison, you might need a library like lodash.
-// 	return true;
-// 	// Note: Be cautious with deep comparison for performance reasons.
-// });
 
 export default Chatbox;

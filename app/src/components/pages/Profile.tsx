@@ -135,8 +135,6 @@ function Profile({scores, lineScores}: ProfileProps) {
 
 
 
-
-
 	return (
 		<div className="grid grid-cols-3 gap-4 p-4">
 			<Card className="flex flex-col justify-center items-center p-10">
