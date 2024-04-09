@@ -22,7 +22,7 @@ export class Project {
 
   @Column()
   deadline: Date;
-  
+
   @Column()
   teamSize: number;
 
@@ -36,7 +36,7 @@ export class Project {
   updatedAt: Date;
 
   @ManyToOne(() => User, (user) => user.posts)
-  @JoinColumn({ name: 'userId' })
+  @JoinColumn({ name: "userId" })
   creator: User;
 
   @Column()
@@ -44,4 +44,8 @@ export class Project {
 
   @ManyToMany(() => User, (user) => user.projects, { nullable: true })
   participants: User[];
+
+  @Column()
+  thumbnail: string =
+    "https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image.png";
 }

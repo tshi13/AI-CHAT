@@ -1,6 +1,6 @@
-import { createProject } from "@/api/project";
+import { createProject, getProject } from "@/api/project";
 import { useToast } from "@/components/ui/use-toast";
-import { Project } from "@/lib/types";
+import { Project, ProjectQuery } from "@/lib/types";
 
 export default function useEditProject() {
   const { toast } = useToast();
@@ -24,6 +24,18 @@ export default function useEditProject() {
       });
     }
   };
-
-  return {handleProjectCreate};
+  const handleProjectGet = async (query: ProjectQuery) => {
+    try {
+      return await getProject(query);
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        title: "Failed to fetch project",
+        description:
+          (err as Error).message ||
+          "There was an error fetching project. Please try again later.",
+      });
+    }
+  };
+  return { handleProjectCreate, handleProjectGet };
 }

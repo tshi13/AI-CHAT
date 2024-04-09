@@ -10,6 +10,7 @@ import { UserController } from "./user/user.controller";
 import { UserService } from "./user/user.service";
 import { AuthService } from "./auth/auth.service";
 import { User } from "./user/entities/user.entity";
+import { JwtStrategy } from "./auth/jwt.strategy";
 
 console.log(__dirname);
 @Module({
@@ -44,6 +45,6 @@ console.log(__dirname);
     ProjectModule,
   ],
   controllers: [AppController, UserController],
-  providers: [AppService, UserService, AuthService],
+  providers: [AppService, UserService, AuthService, JwtStrategy],
 })
 export class AppModule {}

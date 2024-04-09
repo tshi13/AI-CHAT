@@ -23,7 +23,6 @@ export type Profile = {
   skills?: Skill[];
 };
 
-
 export type Project = {
   id?: string;
   title: string;
@@ -33,11 +32,17 @@ export type Project = {
   deadline?: Date;
   teamSize: number;
   cratedAt?: Date;
+  thumbnail?: string;
 };
-
 
 export type ErrorResponse = {
   error: string;
   message: string;
   statusCode: number;
+};
+
+export type ProjectQuery = {
+  offset: number;
+  limit: number;
+  order: "ASC" | "DESC";
 };
