@@ -21,82 +21,19 @@ import { user } from "../../data";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card } from "../ui/card";
 import ProjectCard from "../ui/projectCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ScoreData } from "@/types";
 
 interface ProfileProps {
   scores: { [key: string]: number };
+	lineScores: ScoreData[];
 }
 
-interface ScoreData {
-  date: string;
-  professionalism: number;
-  initiative: number;
-  leadership: number;
-  problemSolving: number;
-  teamwork: number;
-}
-
-const initialScores: ScoreData[] = [
-  {
-    date: "2023-04-02",
-    professionalism: 50,
-    initiative: 60,
-    leadership: 40,
-    problemSolving: 70,
-    teamwork: 80,
-  },
-  {
-    date: "2023-04-01",
-    professionalism: 55,
-    initiative: 65,
-    leadership: 45,
-    problemSolving: 75,
-    teamwork: 85,
-  },
-  {
-    date: "2023-03-28",
-    professionalism: 62,
-    initiative: 58,
-    leadership: 52,
-    problemSolving: 68,
-    teamwork: 78,
-  },
-  {
-    date: "2023-03-25",
-    professionalism: 48,
-    initiative: 72,
-    leadership: 56,
-    problemSolving: 62,
-    teamwork: 82,
-  },
-  {
-    date: "2023-03-22",
-    professionalism: 58,
-    initiative: 67,
-    leadership: 50,
-    problemSolving: 72,
-    teamwork: 75,
-  },
-  {
-    date: "2023-03-19",
-    professionalism: 53,
-    initiative: 63,
-    leadership: 48,
-    problemSolving: 65,
-    teamwork: 88,
-  },
-  {
-    date: "2023-03-16",
-    professionalism: 2,
-    initiative: 5,
-    leadership: 20,
-    problemSolving: 40,
-    teamwork: 32,
-  },
-];
 
 
-function Profile({scores}: ProfileProps) {
+
+
+function Profile({scores, lineScores}: ProfileProps) {
   // Chart config
   ChartJS.register(
     RadialLinearScale,
@@ -145,17 +82,36 @@ function Profile({scores}: ProfileProps) {
 
 
 	// KEVINS GRAPH HERE
-	const [lineScores, setLineScores] = useState<ScoreData[]>(initialScores);
-	const lineChartLabels = lineScores.map((data) => data.date);
-  const datasets = Object.keys(lineScores[0])
-    .filter((key) => key !== "date")
-    .map((key) => ({
-      label: key,
-      data: lineScores.map((data) => data[key as keyof ScoreData]),
-      fill: false,
-      borderColor: `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 1)`,
-      tension: 0.1,
-    }));
+// 	const [lineScores, setLineScores] = useState<ScoreData[]>(initialScores);
+// 	useEffect(() => {
+//     setLineScores((currentScores) => {
+//         const newSequenceNumber = currentScores.length > 0 ? currentScores[currentScores.length - 1].sequenceNumber + 1 : 1;
+
+//         // Ensure the scores prop matches the structure expected by ScoreData
+//         const newScore: ScoreData = {
+//             sequenceNumber: newSequenceNumber,
+//             professionalism: scores.professionalism,
+//             initiative: scores.initiative,
+//             leadership: scores.leadership,
+//             problemSolving: scores.problemSolving,
+//             teamwork: scores.teamwork,
+//         };
+
+//         // Add the new score and keep the most recent 15 entries
+//         const updatedScores = [...currentScores, newScore].slice(-15);
+// 				// console.log(updatedScores);
+//         return updatedScores;
+//     });
+// }, [scores]);
+	
+	const lineChartLabels = lineScores.map(score => `#${score.sequenceNumber}`);
+  const datasets = Object.keys(scores).map(key => ({
+    label: key,
+    data: lineScores.map(score => score[key as keyof ScoreData]),
+    fill: false,
+    borderColor: `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, 1)`,
+    tension: 0.1,
+  }));
 
   const lineChartData = {
 		labels: lineChartLabels,
@@ -165,15 +121,17 @@ function Profile({scores}: ProfileProps) {
   const lineChartOptions = {
     scales: {
       x: {
-        type: "time",
-        time: {
-          unit: "day",
-        },
+        title: {
+          display: true,
+          text: 'Score Sequence' // Meaningful name for the horizontal axis
+        }
       },
+      y: {
+        beginAtZero: true,
+        suggestedMax: 100, // Assuming scores are out of 100
+      }
     },
-  } as ChartOptions<"line">;
-
-
+  };
 
 
 
