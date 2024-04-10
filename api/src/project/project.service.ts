@@ -1,15 +1,36 @@
-import { Injectable } from '@nestjs/common';
-import { CreateProjectDto } from './dto/create-project.dto';
-import { UpdateProjectDto } from './dto/update-project.dto';
+import { Injectable } from "@nestjs/common";
+import { CreateProjectDto } from "./dto/create-project.dto";
+import { UpdateProjectDto } from "./dto/update-project.dto";
+import { Repository } from "typeorm";
+import { Project } from "./entities/project.entity";
+import { InjectRepository } from "@nestjs/typeorm";
+import { UserService } from "src/user/user.service";
+import { GetProjectDto } from "./dto/get-project.dto";
 
 @Injectable()
 export class ProjectService {
-  create(createProjectDto: CreateProjectDto) {
-    return 'This action adds a new project';
+  constructor(
+    @InjectRepository(Project)
+    private projectRepository: Repository<Project>
+  ) {}
+
+  async create(createProjectDto: CreateProjectDto) {
+    const projectDetail = {
+      ...createProjectDto,
+      updatedAt: new Date(),
+    };
+    const projectQuery = await this.projectRepository.create(projectDetail);
+    return this.projectRepository.save(projectQuery);
   }
 
-  findAll() {
-    return `This action returns all project`;
+  async findAll(getProjectDto: GetProjectDto) {
+    const {offset, limit, order} = getProjectDto;
+    const query = this.projectRepository
+      .createQueryBuilder("project")
+      .limit(limit)
+      .offset(offset);
+    query.orderBy("project.createdAt", order);
+    return await query.getMany();
   }
 
   findOne(id: number) {

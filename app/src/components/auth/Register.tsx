@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { useToast } from "../ui/use-toast";
+import { toast, useToast } from "../ui/use-toast";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Role } from "@/lib/types";
 import useStatusUser from "@/hooks/use-status-user";
@@ -12,7 +12,6 @@ function Register() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<Role>(Role.STUDENT);
   const { handleRegister } = useStatusUser();
-  const { toast } = useToast();
   const clearFields = () => {
     setUsername("");
     setPassword("");

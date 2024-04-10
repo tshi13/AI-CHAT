@@ -1,8 +1,8 @@
 export class CreateProjectDto {
   title: string;
-  description: string;
-  maxTeam: number;
-  published: boolean;
-  userId: string;
-  duration: number;
+  summary: string;
+  detail: string;
+  deadline: Date;
+  teamSize: number;
+  userId: number;
 }

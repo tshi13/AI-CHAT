@@ -1,4 +1,19 @@
 @tailwind base;
+
+@layer base {
+  h1 {
+    @apply text-2xl;
+    @apply font-bold;
+  }
+  h2 {
+    @apply text-xl;
+    @apply font-bold;
+  }
+  h3 {
+    @apply text-lg;
+    @apply font-bold;
+  }
+}
 @tailwind components;
 @tailwind utilities;
 
@@ -13,14 +28,61 @@
   width: 100vw;
 }
 
-.hover-underline{
+.hover-underline {
   @apply inline-block relative;
 }
 
-.hover-underline::after{
+.hover-underline::after {
   @apply bg-white content-[''] absolute w-full scale-x-0 h-[2px] bottom-0 left-0 origin-center transition-all ease-in-out;
 }
 
-.hover-underline:hover::after{
+.hover-underline:hover::after {
   @apply scale-x-100;
+}
+
+.fancyScrollBar {
+  scrollbar-color: #868686 #ffffff00;
+  scrollbar-width: thin;
+}
+
+.clickable {
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.border-box:hover {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.border-box:hover::before {
+  content: "";
+  position: absolute;
+  width: 140%;
+  height: 80%;
+  z-index: -2;
+  background: linear-gradient(#0a0a75, #9007ab);
+  animation: rotate 4s linear infinite;
+}
+
+.border-box:hover::after {
+  content: "";
+  position: absolute;
+  background: white;
+  inset: 3px;
+  z-index: -2;
+  border-radius: 10px;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

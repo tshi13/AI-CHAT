@@ -2,7 +2,7 @@ import { Button } from "../../ui/button";
 import { user } from "@/data";
 import ProjectCard from "../../ui/projectCard";
 
-function RecentProjects() {
+export default function RecentProjects() {
   return (
     <div className="content">
       <div className="grid grid-cols-4 gap-4 p-4">
@@ -26,4 +26,3 @@ function RecentProjects() {
     </div>
   );
 }
-export default RecentProjects;
