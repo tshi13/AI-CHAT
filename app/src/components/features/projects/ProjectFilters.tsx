@@ -6,15 +6,15 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 export default function ProjectFilters() {
   return (
     <Card className="flex flex-col gap-2 p-4">
-      <h1>Filter</h1>
+      <h3>Filter</h3>
       <div className="flex items-center gap-2">
         <Checkbox id="yours" />
-        <label htmlFor="yours" className="text-sm">
+        <Label htmlFor="yours" className="text-sm">
           Your Projects
-        </label>
+        </Label>
       </div>
 
-      <h1>Sort by</h1>
+      <h3>Sort by</h3>
       <div className="flex items-center gap-2">
         <RadioGroup defaultValue="mostRecent">
           <div className="flex items-center gap-2">
