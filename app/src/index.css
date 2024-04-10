@@ -63,7 +63,7 @@
   content: "";
   position: absolute;
   width: 140%;
-  height: 40%;
+  height: 80%;
   z-index: -2;
   background: linear-gradient(#0a0a75, #9007ab);
   animation: rotate 4s linear infinite;
@@ -73,7 +73,7 @@
   content: "";
   position: absolute;
   background: white;
-  inset: 5px;
+  inset: 3px;
   z-index: -2;
   border-radius: 10px;
 }

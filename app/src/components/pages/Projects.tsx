@@ -6,6 +6,7 @@ import { Card } from "../ui/card";
 import { CalendarClockIcon, UsersRoundIcon } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -68,15 +69,15 @@ export default function Projects() {
               <div className="flex items-center justify-end gap-4">
                 <Button
                   variant="outline"
-                  className="w-44 bg-sky-500 text-white	"
+                  className="w-44 bg-sky-500 text-white"
                 >
-                  Contact Organization
+                  <Link to={"/chat"}>Contact Organization</Link>
                 </Button>
                 <Button
                   variant="outline"
                   className="w-24 bg-green-500 text-white"
                 >
-                  Join
+                  <Link to={"/chat"}>Join</Link>
                 </Button>
               </div>
             </div>
