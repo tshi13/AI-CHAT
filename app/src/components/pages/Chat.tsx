@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { StreamChat } from "stream-chat";
+import { useEffect } from "react";
 import {
   Chat,
   Channel,
@@ -10,42 +9,38 @@ import {
   Window,
 } from "stream-chat-react";
 import "stream-chat-react/dist/css/v2/index.css";
+import { User, Group } from "../../types";
+import { ScoresType } from "../../types";
+import React from "react";
+import useChat from "@/hooks/use-chat";
+import { StreamChat } from "stream-chat";
+import { useStore } from "@/lib/store";
+
+// const userToken = 'DEV'; //DEV TOKEN, DO NOT CHANGE!
+
+interface ChatBoxProps {
+  user: User;
+  group: Group;
+  setScores?: React.Dispatch<React.SetStateAction<ScoresType>>;
+}
 
 const chatClient = new StreamChat("hm7ff5yafac3");
-export default function Chatbox() {
-  const [channel, setChannel] = useState<any>();
-  const [flag, setFlag] = useState(false);
-  const setupChat = async () => {
-    // connect client to chat with credential
 
-    const chatUser = { id: "65f1a50e075c37359e2fdcef", name: "Yulun" };
-    const group = {
-      id: "65f19f411286acb83d05d2a0",
-      name: "Rising Start Testing",
+function Chatbox({ user, group, setScores }: ChatBoxProps) {
+  const { setupChat } = useChat(chatClient);
+  const flag = useStore((state) => state.chatFlag);
+  const toggleChatFlag = useStore((state) => state.toggleChatFlag);
+  const channel = useStore((state) => state.channel)!;
+  const clearChannel = useStore((state) => state.clearChannel);
+
+  useEffect(() => {
+    setupChat(user, group, setScores);
+    return () => {
+      chatClient.disconnectUser().then(() => console.log("User disconnected"));
+      toggleChatFlag();
+      clearChannel();
     };
-    await chatClient.connectUser(chatUser, chatClient.devToken(chatUser.id));
-    console.log("connected")
-
-    // creating or recreating the channel
-    const tempChannel = await chatClient.channel("messaging", group.id, {
-      name: group.name,
-    });
-
-    tempChannel.on("message.new", (event) => {
-      if (event.user && event.message) {
-        console.log(`${event.user.name}: ${event.message.text}`);
-        const message = event.message.text;
-        console.log(message)
-      }
-    });
-
-    // await tempChannel.addMembers([{user_id:userID}],{ text: {username} + ' joined the channel.' }); // add someone to channel
-    setChannel(tempChannel);
-    setFlag(true);
-  };
-
-  // set the channel and channel name for the chat to display
-  setupChat();
+  }, []);
   // Render the chat component if the channel has been set
   if (flag) {
     return (
@@ -64,3 +59,5 @@ export default function Chatbox() {
     );
   }
 }
+
+export default Chatbox;

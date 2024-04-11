@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import Chatbox from "./components/pages/ChatBox";
+import Chatbox from "./components/pages/Chat";
 import Profile from "./components/pages/Profile";
 import AppBar from "./components/features/common/AppBar";
 import ErrorPage from "./components/features/common/ErrorPage";
@@ -75,7 +75,6 @@ function App() {
                     id: "65f19f411286acb83d05d2a0",
                     name: "Rising Start Testing",
                   }}
-                  newHeight={800}
                   setScores={setScores}
                 />
               }
