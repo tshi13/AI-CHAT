@@ -7,6 +7,7 @@ import { CalendarClockIcon, UsersRoundIcon } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
+import { Separator } from "../ui/separator";
 
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -38,7 +39,7 @@ export default function Projects() {
                 className="h-36 clickable border shadow border-box"
                 onClick={() => setSelectedProject(project)}
               >
-                <div className="flex h-full gap-2 p-2 rounded-[10px]">
+                <div className="flex w-full h-full gap-2 p-2 rounded-[10px]">
                   <img className="size-32" src={project.thumbnail} />
                   <div className="h-full relative">
                     <p className="font-medium">{project.title}</p>
@@ -60,7 +61,7 @@ export default function Projects() {
           </div>
         </div>
         <Card className="col-span-5 w-full flex p-4 overflow-hidden overflow-y-auto h-[88vh] fancyScrollBar">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 w-full">
             <div className="grid grid-cols-2">
               <div className="flex items-center">
                 <img className="w-24" src={selectedProject?.thumbnail} />
@@ -81,6 +82,7 @@ export default function Projects() {
                 </Button>
               </div>
             </div>
+            <Separator />
             <h2>Summary</h2>
             <p className="font-light">{selectedProject?.summary}</p>
             <h3 className="font-bold text-xl">Detail</h3>

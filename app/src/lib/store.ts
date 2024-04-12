@@ -1,7 +1,6 @@
 import { create } from "zustand";
-import { User } from "./types";
-import { StreamChat } from "stream-chat";
-
+import { Project, User } from "./types";
+import { Channel, StreamChat } from "stream-chat";
 
 interface State {
   user: User | null;
@@ -11,6 +10,18 @@ interface State {
   chatClient: StreamChat | null;
   setChatClient: (chatClient: StreamChat) => void;
   clearChatClient: () => void;
+
+  displayProjects: Project[];
+  setDisplayProjects: (projects: Project[]) => void;
+  addDisplayProject: (project: Project) => void;
+  clearDisplayProjects: () => void;
+
+  chatFlag: boolean;
+  toggleChatFlag: () => void;
+
+  channel: Channel | null;
+  setChannel: (channel: Channel) => void;
+  clearChannel: () => void;
 }
 
 export const useStore = create<State>()((set) => ({
@@ -21,4 +32,18 @@ export const useStore = create<State>()((set) => ({
   chatClient: null,
   setChatClient: (chatClient: StreamChat) => set({ chatClient }),
   clearChatClient: () => set({ chatClient: null }),
+
+  displayProjects: [],
+  setDisplayProjects: (projects: Project[]) =>
+    set({ displayProjects: projects }),
+  addDisplayProject: (project: Project) =>
+    set((state) => ({ displayProjects: [project, ...state.displayProjects] })),
+  clearDisplayProjects: () => set({ displayProjects: [] }),
+
+  chatFlag: false,
+  toggleChatFlag: () => set((state) => ({ chatFlag: !state.chatFlag })),
+
+  channel: null,
+  setChannel: (channel: Channel) => set({ channel }),
+  clearChannel: () => set({ channel: null }),
 }));

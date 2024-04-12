@@ -34,6 +34,7 @@
     "localforage": "^1.10.0",
     "lucide-react": "^0.363.0",
     "match-sorter": "^6.3.4",
+    "openai": "^4.33.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "react": "^18.2.0",
