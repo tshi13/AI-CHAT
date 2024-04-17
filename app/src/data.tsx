@@ -50,7 +50,32 @@ export const company = {
 //   visible: true,
 // };
 
+export const experience = [
+  {
+    picture: "https://pbs.twimg.com/profile_images/1493913992988868612/aP6JZYLX_400x400.jpg",
+    company: "IBM",
+    title: "Software Engineer",
+    date: "2021 - 2022",
+    description: "Worked on the IBM Cloud team to develop and maintain cloud services.",
+  },
+  {
+    picture: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ75Q9EvClA_AXpsxkvrXrLRQS6iLAI-Y_MV9FKjZDSEw&s",
+    company: "Google",
+    title: "Software Engineer",
+    date: "2020 - 2021",
+    description: "Developed software for Google's search engine.",
+  },
+  {
+    picture: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuszbwi16GcmdkCKY_Uv2mVvFAkcd2IfMCQJmp7XjGdg&s",
+    company: "Microsoft",
+    title: "Software Engineer",
+    date: "2019 - 2020",
+    description: "Developed software for Microsoft's Windows operating system.",
+  },
+];
+
 export const user = {
+  id: 2,
   username: "YunZng",
   name: "Yulun Zeng",
   avatar: "https://avatars.githubusercontent.com/u/70663623?v=4",
