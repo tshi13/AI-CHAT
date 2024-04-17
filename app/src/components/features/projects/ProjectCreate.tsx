@@ -27,6 +27,7 @@ import useEditProject from "@/hooks/use-edit-projects";
 
 export default function ProjectCreate() {
   const user = useStore((state) => state.user)!;
+  const addDisplayProject = useStore((state) => state.addDisplayProject);
   const [open, setOpen] = useState(false);
   const [project, setProject] = useState<Project>({
     title: "",
@@ -48,6 +49,7 @@ export default function ProjectCreate() {
       });
     } else {
       await handleProjectCreate(project);
+      addDisplayProject({...project, thumbnail: "https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image.png"});
       setOpen(false);
       setProject({
         title: "",

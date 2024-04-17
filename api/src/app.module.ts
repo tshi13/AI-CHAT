@@ -11,6 +11,9 @@ import { UserService } from "./user/user.service";
 import { AuthService } from "./auth/auth.service";
 import { User } from "./user/entities/user.entity";
 import { JwtStrategy } from "./auth/jwt.strategy";
+import { ProjectController } from "./project/project.controller";
+import { ProjectService } from "./project/project.service";
+import { Project } from "./project/entities/project.entity";
 
 console.log(__dirname);
 @Module({

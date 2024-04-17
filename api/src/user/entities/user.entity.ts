@@ -3,6 +3,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -48,11 +49,10 @@ export class User {
   @Column({ type: "jsonb", nullable: true })
   skills?: Skill[];
 
-  @OneToMany(() => Project, (project) => project.creator, { nullable: true })
+  @OneToMany(() => Project, (project) => project.creator)
   posts: Project[];
 
-  @ManyToMany(() => Project, (project) => project.participants, {
-    nullable: true,
-  })
+  @ManyToMany(() => Project, (project) => project.participants)
+  @JoinTable()
   projects: Project[];
 }

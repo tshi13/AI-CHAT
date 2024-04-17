@@ -5,6 +5,9 @@ import {
   UnauthorizedException,
   HttpStatus,
   HttpException,
+  Get,
+  Req,
+  Param,
 } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
@@ -18,6 +21,11 @@ export class UserController {
     private readonly userService: UserService,
     private readonly authService: AuthService
   ) {}
+
+  @Get("projects/:id")
+  async getUserProjects(@Param("id") id: number) {
+    return await this.userService.getUserProjects(id);
+  }
 
   @Post("register")
   async create(@Body() createUserDto: CreateUserDto): Promise<ResponseUserDto> {
@@ -37,7 +45,6 @@ export class UserController {
   async login(
     @Body() loginUserDto: LoginUserDto
   ): Promise<{ access_token: string }> {
-
     const user = await this.authService.validateUser(
       loginUserDto.username,
       loginUserDto.password

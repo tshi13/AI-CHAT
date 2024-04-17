@@ -24,7 +24,7 @@ export class ProjectService {
   }
 
   async findAll(getProjectDto: GetProjectDto) {
-    const {offset, limit, order} = getProjectDto;
+    const { offset, limit, order } = getProjectDto;
     const query = this.projectRepository
       .createQueryBuilder("project")
       .limit(limit)
@@ -33,8 +33,8 @@ export class ProjectService {
     return await query.getMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} project`;
+  async findOne(id: string): Promise<Project> {
+    return await this.projectRepository.findOneBy({ id });
   }
 
   update(id: number, updateProjectDto: UpdateProjectDto) {
