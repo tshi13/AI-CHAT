@@ -16,6 +16,9 @@ interface State {
   addDisplayProject: (project: Project) => void;
   clearDisplayProjects: () => void;
 
+  selectedProject: Project | null;
+  setSelectedProject: (project: Project) => void;
+
   chatFlag: boolean;
   toggleChatFlag: () => void;
 
@@ -39,6 +42,9 @@ export const useStore = create<State>()((set) => ({
   addDisplayProject: (project: Project) =>
     set((state) => ({ displayProjects: [project, ...state.displayProjects] })),
   clearDisplayProjects: () => set({ displayProjects: [] }),
+
+  selectedProject: null,
+  setSelectedProject: (project: Project) => set({ selectedProject: project }),
 
   chatFlag: false,
   toggleChatFlag: () => set((state) => ({ chatFlag: !state.chatFlag })),

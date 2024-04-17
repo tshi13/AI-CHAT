@@ -20,12 +20,12 @@ function ProjectCard({
     <Card className={`overflow-hidden ${height} flex`}>
       <img
         className={`${height} ${width} object-contain`}
-        src={project.company.avatar}
+        src={project.thumbnail}
       />
       <div className="relative p-1 w-full h-full">
         <h1 className={fontSizeTitle}>{project.title}</h1>
         <p className={`${fontSizeRest} font-light text-slate-500`}>
-          {project.company.name}
+          {project.summary}
         </p>
         <p className={`${fontSizeRest} ${lines}`}>{project.description}</p>
         <Link to={`/project/${project.id}`} className={`${fontSizeRest} absolute right-0 bottom-0 p-2 hover:underline`}>View details &rarr;</Link>

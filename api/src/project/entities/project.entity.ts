@@ -42,7 +42,7 @@ export class Project {
   @Column()
   userId: number;
 
-  @ManyToMany(() => User, (user) => user.projects, { nullable: true })
+  @ManyToMany(() => User, user => user.projects)
   participants: User[];
 
   @Column()

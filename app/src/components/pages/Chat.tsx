@@ -16,8 +16,6 @@ import useChat from "@/hooks/use-chat";
 import { StreamChat } from "stream-chat";
 import { useStore } from "@/lib/store";
 
-// const userToken = 'DEV'; //DEV TOKEN, DO NOT CHANGE!
-
 interface ChatBoxProps {
   user: User;
   group: Group;
@@ -41,7 +39,6 @@ function Chatbox({ user, group, setScores }: ChatBoxProps) {
       clearChannel();
     };
   }, []);
-  // Render the chat component if the channel has been set
   if (flag) {
     return (
       <div className="content">

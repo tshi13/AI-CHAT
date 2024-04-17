@@ -34,3 +34,44 @@ export async function getProject(
     throw new Error(`Error ${error.statusCode} - ${error.message}`);
   }
 }
+
+export async function updateProject(project: Project) {
+  try {
+    const response = await axios.put(`${API_URL}/${project.id}`, project, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+    return response.data;
+  } catch (err) {
+    const error = (err as AxiosError).response?.data as ErrorResponse;
+    throw new Error(`Error ${error.statusCode} - ${error.message}`);
+  }
+}
+
+export async function deleteProject(id: string) {
+  try {
+    const response = await axios.delete(`${API_URL}/${id}`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+    return response.data;
+  } catch (err) {
+    const error = (err as AxiosError).response?.data as ErrorResponse;
+    throw new Error(`Error ${error.statusCode} - ${error.message}`);
+  }
+}
+
+export async function joinProject(userId: number, projectId: string) {
+  try {
+    const response = await axios.post(
+      `${API_URL}/join`,
+      { userId, projectId },
+      {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    const error = (err as AxiosError).response?.data as ErrorResponse;
+    throw new Error(`Error ${error.statusCode} - ${error.message}`);
+  }
+}
+

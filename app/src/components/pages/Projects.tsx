@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import ProjectAside from "../features/projects/ProjectAside";
 import useEditProject from "@/hooks/use-edit-projects";
-import { Project, ProjectQuery } from "@/lib/types";
+import { ProjectQuery } from "@/lib/types";
 import { Card } from "../ui/card";
 import { CalendarClockIcon, UsersRoundIcon } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-import { Button } from "../ui/button";
-import { Link } from "react-router-dom";
 import { Separator } from "../ui/separator";
+import ProjectActions from "../features/projects/ProjectActions";
+import { useStore } from "@/lib/store";
 
 export default function Projects() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [selectedProject, setSelectedProject] = useState<Project>();
+  const displayProjects = useStore((state) => state.displayProjects);
+  const selectedProject = useStore((state) => state.selectedProject);
+  const setSelectedProject = useStore((state) => state.setSelectedProject);
   const [query] = useState<ProjectQuery>({
     offset: 0,
     limit: 25,
@@ -19,9 +20,7 @@ export default function Projects() {
   });
   const { handleProjectGet } = useEditProject();
   const loadProjects = async () => {
-    const response = await handleProjectGet(query);
-    await setProjects(response);
-    await setSelectedProject(response[0]);
+    await handleProjectGet(query);
   };
   useEffect(() => {
     loadProjects();
@@ -33,7 +32,7 @@ export default function Projects() {
       <div className="col-span-5 grid grid-cols-7 gap-4 flex">
         <div className="col-span-2 overflow-hidden overflow-y-auto h-[88vh] fancyScrollBar">
           <div className="flex flex-col gap-2">
-            {projects.map((project) => (
+            {displayProjects.map((project) => (
               <div
                 key={project.id}
                 className="h-36 clickable border shadow border-box"
@@ -60,35 +59,24 @@ export default function Projects() {
             ))}
           </div>
         </div>
-        <Card className="col-span-5 w-full flex p-4 overflow-hidden overflow-y-auto h-[88vh] fancyScrollBar">
-          <div className="flex flex-col gap-4 w-full">
-            <div className="grid grid-cols-2">
-              <div className="flex items-center">
-                <img className="w-24" src={selectedProject?.thumbnail} />
-                <h1>{selectedProject?.title}</h1>
+        {selectedProject ? (
+          <Card className="col-span-5 w-full flex p-4 overflow-hidden overflow-y-auto h-[88vh] fancyScrollBar">
+            <div className="flex flex-col gap-4 w-full">
+              <div className="grid grid-cols-2">
+                <div className="flex items-center">
+                  <img className="w-24" src={selectedProject?.thumbnail} />
+                  <h1>{selectedProject?.title}</h1>
+                </div>
+                <ProjectActions />
               </div>
-              <div className="flex items-center justify-end gap-4">
-                <Button
-                  variant="outline"
-                  className="w-44 bg-sky-500 text-white"
-                >
-                  <Link to={"/chat"}>Contact Organization</Link>
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-24 bg-green-500 text-white"
-                >
-                  <Link to={"/chat"}>Join</Link>
-                </Button>
-              </div>
+              <Separator />
+              <h2>Summary</h2>
+              <p className="font-light">{selectedProject?.summary}</p>
+              <h3 className="font-bold text-xl">Detail</h3>
+              <ReactMarkdown>{selectedProject?.detail}</ReactMarkdown>
             </div>
-            <Separator />
-            <h2>Summary</h2>
-            <p className="font-light">{selectedProject?.summary}</p>
-            <h3 className="font-bold text-xl">Detail</h3>
-            <ReactMarkdown>{selectedProject?.detail}</ReactMarkdown>
-          </div>
-        </Card>
+          </Card>
+        ) : null}
       </div>
     </div>
   );
