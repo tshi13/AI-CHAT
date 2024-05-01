@@ -28,7 +28,7 @@ function ProjectCard({
           {project.summary}
         </p>
         <p className={`${fontSizeRest} ${lines}`}>{project.description}</p>
-        <Link to={`/project/${project.id}`} className={`${fontSizeRest} absolute right-0 bottom-0 p-2 hover:underline`}>View details &rarr;</Link>
+        <Link to={`/projects`} className={`${fontSizeRest} absolute right-0 bottom-0 p-2 hover:underline`}>View details &rarr;</Link>
       </div>
     </Card>
   );

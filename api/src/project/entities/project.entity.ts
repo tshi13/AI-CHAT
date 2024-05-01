@@ -35,10 +35,6 @@ export class Project {
   @Column()
   updatedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.posts)
-  @JoinColumn({ name: "userId" })
-  creator: User;
-
   @Column()
   userId: number;
 
@@ -47,5 +43,6 @@ export class Project {
 
   @Column()
   thumbnail: string =
-    "https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image.png";
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ75Q9EvClA_AXpsxkvrXrLRQS6iLAI-Y_MV9FKjZDSEw&s";
+    // "https://www.adaptivewfs.com/wp-content/uploads/2020/07/logo-placeholder-image.png";
 }

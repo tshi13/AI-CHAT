@@ -1,7 +1,7 @@
 import { useStore } from "@/lib/store";
 import { appName, pages } from "../../../data";
 import { Sparkles } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../ui/button";
 import useStatusUser from "@/hooks/use-status-user";
 import {
@@ -26,13 +26,14 @@ export default function AppBar() {
     <div className="sticky top-0">
       <nav className="flex text-xl bg-black text-white appbar items-center pl-4">
         <Sparkles />
-        <button
-          onClick={() => handleClick(pages[0])}
-          className="hover-underline font-bold pl-2 text-2xl"
-        >
-          {appName}
-        </button>
-
+        <Link to="http://localhost:5173/AI-CHAT/profile/2">
+          <button
+            onClick={() => handleClick(pages[0])}
+            className="hover-underline font-bold pl-2 text-2xl"
+          >
+            {appName}
+          </button>
+        </Link>
         <div className="absolute right-0 pr-8">
           <div className="flex gap-16 items-center">
             {pages.map((page) => (

@@ -49,9 +49,6 @@ export class User {
   @Column({ type: "jsonb", nullable: true })
   skills?: Skill[];
 
-  @OneToMany(() => Project, (project) => project.creator)
-  posts: Project[];
-
   @ManyToMany(() => Project, (project) => project.participants)
   @JoinTable()
   projects: Project[];

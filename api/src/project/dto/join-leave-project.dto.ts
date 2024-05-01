@@ -1,6 +1,6 @@
 import { IsAlpha, IsInt } from "class-validator";
 
-export class JoinRequestDto {
+export class JoinLeaveRequestDto {
   @IsInt()
   userId: number;
 

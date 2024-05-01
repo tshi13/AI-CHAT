@@ -1,11 +1,10 @@
-import { Injectable } from "@nestjs/common";
+import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "./entities/user.entity";
-import { Repository } from "typeorm";
+import { In, Repository } from "typeorm";
 import { ConfigService } from "@nestjs/config";
 import * as bcrypt from "bcrypt";
-import { JoinRequestDto } from "src/project/dto/join-project.dto";
 import { Project } from "src/project/entities/project.entity";
 import { ProjectService } from "src/project/project.service";
 
@@ -43,6 +42,15 @@ export class UserService {
     return await this.userRepository.save(user);
   }
 
+  async removeProject(id: number, project: Project) {
+    const user = await this.userRepository.findOne({
+      where: { id },
+      relations: ['projects'],
+    });
+    user.projects = user.projects.filter((p) => p.id !== project.id);
+    return await this.userRepository.save(user);
+  }
+
   async findOneById(id: number): Promise<User | undefined> {
     return this.userRepository.findOneBy({ id });
   }
@@ -53,5 +61,9 @@ export class UserService {
       relations: ['projects'],
     });
     return user.projects;
+  }
+
+  async getUsersByIds(ids: number[]) {
+    return this.userRepository.findBy({id: In(ids)});
   }
 }

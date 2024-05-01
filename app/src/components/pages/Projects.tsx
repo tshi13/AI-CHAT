@@ -13,6 +13,7 @@ export default function Projects() {
   const displayProjects = useStore((state) => state.displayProjects);
   const selectedProject = useStore((state) => state.selectedProject);
   const setSelectedProject = useStore((state) => state.setSelectedProject);
+  const [filterOwn, setFilterOwn] = useState(false);
   const [query] = useState<ProjectQuery>({
     offset: 0,
     limit: 25,
@@ -22,6 +23,7 @@ export default function Projects() {
   const loadProjects = async () => {
     await handleProjectGet(query);
   };
+
   useEffect(() => {
     loadProjects();
   }, []);
@@ -39,10 +41,15 @@ export default function Projects() {
                 onClick={() => setSelectedProject(project)}
               >
                 <div className="flex w-full h-full gap-2 p-2 rounded-[10px]">
-                  <img className="size-32" src={project.thumbnail} />
+                  <img
+                    className="size-32"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ75Q9EvClA_AXpsxkvrXrLRQS6iLAI-Y_MV9FKjZDSEw&s"
+                  />
                   <div className="h-full relative">
-                    <p className="font-medium">{project.title}</p>
-                    <p className="font-light">{project.summary}</p>
+                    <p className="font-medium line-clamp-2">{project.title}</p>
+                    <p className="font-light text-xs line-clamp-3">
+                      {project.summary}
+                    </p>
                     <span className="flex items-center text-sm font-light gap-8 absolute bottom-0">
                       <span className="flex gap-2">
                         <CalendarClockIcon className="size-4" />
