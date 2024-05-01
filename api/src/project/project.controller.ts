@@ -16,7 +16,7 @@ import { CreateProjectDto } from "./dto/create-project.dto";
 import { UpdateProjectDto } from "./dto/update-project.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { GetProjectDto } from "./dto/get-project.dto";
-import { JoinRequestDto } from "./dto/join-project.dto";
+import { JoinLeaveRequestDto } from "./dto/join-leave-project.dto";
 import { UserService } from "src/user/user.service";
 
 @Controller("project")
@@ -41,27 +41,45 @@ export class ProjectController {
   }
 
   @Post("join")
-  async join(@Body() {userId, projectId}: JoinRequestDto) {
+  async join(@Body() {userId, projectId}: JoinLeaveRequestDto) {
     const project = await this.projectService.findOne(projectId);
     const user = await this.userService.addProject(userId, project);
-    if (!user) {
+    const updatedProject = await this.projectService.addPartipant(user, projectId);
+    if (!user || !updatedProject) {
       throw new HttpException(
         "Joining project failed",
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
-    console.log('that was good')
     return HttpStatus.OK;
+  }
+
+  @Post("leave")
+  async leave(@Body() {userId, projectId}: JoinLeaveRequestDto) {
+    const project = await this.projectService.findOne(projectId);
+    const user = await this.userService.removeProject(userId, project);
+    if (!user) {
+      throw new HttpException(
+        "Leaving project failed",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+    return HttpStatus.OK;
+  }
+  
+  @Get(":id")
+  findOne(@Param("id") id: string) {
+    return this.projectService.findOne(id);
+  }
+
+  @Get(":id/participants")
+  async getParticipants(@Param("id") id: string) {
+    return await this.projectService.getParticipants(id);
   }
 
   @Get()
   async findAll(@Query() getProjectDto: GetProjectDto) {
     return await this.projectService.findAll(getProjectDto);
-  }
-
-  @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.projectService.findOne(id);
   }
 
   @Patch(":id")
@@ -70,7 +88,7 @@ export class ProjectController {
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.projectService.remove(+id);
+  async remove(@Param("id") id: string) {
+    return await this.projectService.remove(id);
   }
 }

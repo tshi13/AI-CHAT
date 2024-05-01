@@ -8,12 +8,15 @@ import {
   Get,
   Req,
   Param,
+  Inject,
+  forwardRef,
 } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { LoginUserDto } from "./dto/login-user.dto";
 import { AuthService } from "src/auth/auth.service";
 import { ResponseUserDto } from "./dto/response-user.dto";
+import { ProjectService } from "src/project/project.service";
 
 @Controller("user")
 export class UserController {

@@ -75,3 +75,30 @@ export async function joinProject(userId: number, projectId: string) {
   }
 }
 
+export async function leaveProject(userId: number, projectId: string) {
+  try {
+    const response = await axios.post(
+      `${API_URL}/leave`,
+      { userId, projectId },
+      {
+        headers: { Authorization: `Bearer ${getToken()}` },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    const error = (err as AxiosError).response?.data as ErrorResponse;
+    throw new Error(`Error ${error.statusCode} - ${error.message}`);
+  }
+}
+
+export async function getParticipants(projectId: string) {
+  try {
+    const response = await axios.get(`${API_URL}/${projectId}/participants`, {
+      headers: { Authorization: `Bearer ${getToken()}` },
+    });
+    return response.data;
+  } catch (err) {
+    const error = (err as AxiosError).response?.data as ErrorResponse;
+    throw new Error(`Error ${error.statusCode} - ${error.message}`);
+  }
+}

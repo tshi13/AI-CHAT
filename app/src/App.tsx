@@ -65,7 +65,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<Profile lineScores={lineScores} scores={scores}/>} />
-            <Route path="/home" element={<Profile lineScores={lineScores}  scores={scores}/>} />
+            <Route path="/home" element={<Profile lineScores={lineScores} scores={scores}/>} />
             <Route
               path="/chat"
               element={
@@ -81,6 +81,7 @@ function App() {
             />
             <Route path="/projects" element={<Projects />} />
             <Route path="*" element={<ErrorPage />} />
+            <Route path="/profile/:id" element={<Profile lineScores={lineScores} scores={scores} fromStudent={true}/>} />
           </Routes>
         </div>
       ) : (

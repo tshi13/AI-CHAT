@@ -90,3 +90,16 @@ export const user = {
   bio: "Hi, I am Yulun. I am a junior student at Johns Hopkins University. I major in Computer Science and minor in Applied Math, and Entrepreneurship & Management. I enjoy learning about the application of chemistry and biology in the field of engineering. I wish to further pursue my career as a software developer. I would love to connect with like-minded students and professionals. Contact me via Linkedin, and let's chat!",
   projects: [],
 };
+
+export const participants = [
+  {
+    ...user,
+    avatar: "https://avatars.githubusercontent.com/u/70663623?v=4",
+  },
+  {
+    ...user,
+    avatar: "https://noraxu-0111.github.io/images/landing/designer.jpg",
+    name: "Nora Xu",
+    id: 3,
+  }
+];

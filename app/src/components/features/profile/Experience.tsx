@@ -1,3 +1,4 @@
+import { Separator } from "@/components/ui/separator";
 import ExperienceCreate from "./ExperienceCreate";
 import { experience } from "@/data";
 
@@ -8,6 +9,7 @@ export default function Experience() {
         <h1 className="text-2xl">Experience</h1>
         <ExperienceCreate />
       </div>
+      <Separator />
       <div className="flex flex-col pt-8 gap-4">
         {experience.map((exp) => {
           return (

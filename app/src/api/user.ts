@@ -4,7 +4,7 @@ import axios, { AxiosError } from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL + "/user";
 
-export async function getProjectById(id: number) {
+export async function getProjectByUserId(id: number) {
   try {
     const response = await axios.get(`${API_URL}/projects/${id}`, {
       headers: { Authorization: `Bearer ${getToken()}` },

@@ -25,6 +25,14 @@ interface State {
   channel: Channel | null;
   setChannel: (channel: Channel) => void;
   clearChannel: () => void;
+
+  userProjects: Project[];
+  setUserProjects: (projects: Project[]) => void;
+  addUserProject: (project: Project) => void;
+  removeUserProject: (project: Project) => void;
+
+  participants: User[];
+  setParticipants: (participants: User[]) => void;
 }
 
 export const useStore = create<State>()((set) => ({
@@ -52,4 +60,18 @@ export const useStore = create<State>()((set) => ({
   channel: null,
   setChannel: (channel: Channel) => set({ channel }),
   clearChannel: () => set({ channel: null }),
+
+  userProjects: [],
+  setUserProjects: (projects: Project[]) => set({ userProjects: projects }),
+  addUserProject: (project: Project) =>
+    set((state) => ({ userProjects: [project, ...state.userProjects] })),
+  removeUserProject: (project: Project) =>
+    set((state) => ({
+      userProjects: state.userProjects.filter(
+        (userProject) => userProject.id !== project.id
+      ),
+    })),
+
+  participants: [],
+  setParticipants: (participants: User[]) => set({ participants }),
 }));
